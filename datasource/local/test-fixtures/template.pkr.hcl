@@ -1,10 +1,9 @@
-data "scaffolding-my-datasource" "test" {
+data "git-datasource-local" "test" {
   mock = "mock-config"
 }
 
 locals {
-  foo = data.scaffolding-my-datasource.test.foo
-  bar = data.scaffolding-my-datasource.test.bar
+  hash = data.git-datasource-local.test.commit_sha
 }
 
 source "null" "basic-example" {
@@ -18,8 +17,7 @@ build {
 
   provisioner "shell-local" {
     inline = [
-      "echo foo: ${local.foo}",
-      "echo bar: ${local.bar}",
+      "echo hash: ${local.hash}",
     ]
   }
 }

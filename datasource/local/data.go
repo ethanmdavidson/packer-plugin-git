@@ -1,11 +1,12 @@
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput
-package scaffolding
+package local
 
 import (
 	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/hashicorp/packer-plugin-sdk/hcl2helper"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
 	"github.com/zclconf/go-cty/cty"
+	"github.com/go-git/go-git/v5"
 )
 
 type Config struct {
@@ -17,8 +18,7 @@ type Datasource struct {
 }
 
 type DatasourceOutput struct {
-	Foo string `mapstructure:"foo"`
-	Bar string `mapstructure:"bar"`
+	CommitSha string `mapstructure:"commit_sha"`
 }
 
 func (d *Datasource) ConfigSpec() hcldec.ObjectSpec {
@@ -38,9 +38,18 @@ func (d *Datasource) OutputSpec() hcldec.ObjectSpec {
 }
 
 func (d *Datasource) Execute() (cty.Value, error) {
-	output := DatasourceOutput{
-		Foo: "foo-value",
-		Bar: "bar-value",
-	}
+    output := DatasourceOutput{}
+    emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
+
+    repo, err := git.PlainOpen("../..")
+    if(err != nil){
+        return emptyOutput, err
+    }
+    hash, err := repo.ResolveRevision("HEAD")
+    if(err != nil){
+        return emptyOutput, err
+    }
+
+	output.CommitSha = hash.String()
 	return hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec()), nil
 }

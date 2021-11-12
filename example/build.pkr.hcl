@@ -1,8 +1,8 @@
 packer {
   required_plugins {
     scaffolding = {
-      version = ">=v0.1.0"
-      source  = "github.com/hashicorp/scaffolding"
+      version = ">=v0.0.1"
+      source  = "github.com/ethanmdavidson/git-datasource"
     }
   }
 }

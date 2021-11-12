@@ -27,7 +27,7 @@ packer {
   required_plugins {
     name = {
       version = ">= 0.0.1"
-      source  = "github.com/hashicorp/name"
+      source  = "github.com/ethanmdavidson/git-datasource"
     }
   }
 }

@@ -1,4 +1,4 @@
-NAME=scaffolding
+NAME=git-datasource
 BINARY=packer-plugin-${NAME}
 
 COUNT?=1

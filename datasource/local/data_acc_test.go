@@ -1,4 +1,4 @@
-package scaffolding
+package local
 
 import (
 	_ "embed"
@@ -13,20 +13,20 @@ import (
 )
 
 //go:embed test-fixtures/template.pkr.hcl
-var testPostProcessorHCL2Basic string
+var testDatasourceHCL2Basic string
 
-// Run with: PACKER_ACC=1 go test -count 1 -v ./post-processor/scaffolding/post-processor_acc_test.go  -timeout=120m
-func TestAccScaffoldingPostProcessor(t *testing.T) {
+// Run with: PACKER_ACC=1 go test -count 1 -v ./datasource/git/data_acc_test.go  -timeout=120m
+func TestAccScaffoldingDatasource(t *testing.T) {
 	testCase := &acctest.PluginTestCase{
-		Name: "scaffolding_post-processor_basic_test",
+		Name: "git_local_basic_test",
 		Setup: func() error {
 			return nil
 		},
 		Teardown: func() error {
 			return nil
 		},
-		Template: testPostProcessorHCL2Basic,
-		Type:     "scaffolding-my-post-processor",
+		Template: testDatasourceHCL2Basic,
+		Type:     "git-local",
 		Check: func(buildCommand *exec.Cmd, logfile string) error {
 			if buildCommand.ProcessState != nil {
 				if buildCommand.ProcessState.ExitCode() != 0 {
@@ -46,9 +46,10 @@ func TestAccScaffoldingPostProcessor(t *testing.T) {
 			}
 			logsString := string(logsBytes)
 
-			postProcessorOutputLog := "post-processor mock: my-mock-config"
-			if matched, _ := regexp.MatchString(postProcessorOutputLog+".*", logsString); !matched {
-				t.Fatalf("logs doesn't contain expected foo value %q", logsString)
+			fooLog := "null.basic-example: hash: "
+
+			if matched, _ := regexp.MatchString(fooLog+"[0-9a-f]{5,40}.*", logsString); !matched {
+				t.Fatalf("logs doesn't contain expected hash value %q", logsString)
 			}
 			return nil
 		},
