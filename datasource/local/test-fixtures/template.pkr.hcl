@@ -1,5 +1,5 @@
 data "git-datasource-local" "test" {
-  mock = "mock-config"
+  directory = "../.."
 }
 
 locals {

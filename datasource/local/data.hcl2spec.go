@@ -10,7 +10,7 @@ import (
 // FlatConfig is an auto-generated flat version of Config.
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatConfig struct {
-	MockOption *string `mapstructure:"mock" cty:"mock" hcl:"mock"`
+	Directory *string `mapstructure:"directory" cty:"directory" hcl:"directory"`
 }
 
 // FlatMapstructure returns a new FlatConfig.
@@ -25,7 +25,7 @@ func (*Config) FlatMapstructure() interface{ HCL2Spec() map[string]hcldec.Spec }
 // The decoded values from this spec will then be applied to a FlatConfig.
 func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 	s := map[string]hcldec.Spec{
-		"mock": &hcldec.AttrSpec{Name: "mock", Type: cty.String, Required: false},
+		"directory": &hcldec.AttrSpec{Name: "directory", Type: cty.String, Required: false},
 	}
 	return s
 }
@@ -34,7 +34,6 @@ func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatDatasourceOutput struct {
 	CommitSha *string `mapstructure:"commit_sha" cty:"commit_sha" hcl:"commit_sha"`
-	Bar       *string `mapstructure:"bar" cty:"bar" hcl:"bar"`
 }
 
 // FlatMapstructure returns a new FlatDatasourceOutput.
@@ -50,7 +49,6 @@ func (*DatasourceOutput) FlatMapstructure() interface{ HCL2Spec() map[string]hcl
 func (*FlatDatasourceOutput) HCL2Spec() map[string]hcldec.Spec {
 	s := map[string]hcldec.Spec{
 		"commit_sha": &hcldec.AttrSpec{Name: "commit_sha", Type: cty.String, Required: false},
-		"bar":        &hcldec.AttrSpec{Name: "bar", Type: cty.String, Required: false},
 	}
 	return s
 }

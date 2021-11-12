@@ -10,7 +10,7 @@ import (
 )
 
 type Config struct {
-	MockOption string `mapstructure:"mock"`
+	Directory string `mapstructure:"directory"`
 }
 
 type Datasource struct {
@@ -30,6 +30,9 @@ func (d *Datasource) Configure(raws ...interface{}) error {
 	if err != nil {
 		return err
 	}
+	if d.config.Directory == "" {
+	    d.config.Directory = "."
+	}
 	return nil
 }
 
@@ -41,12 +44,12 @@ func (d *Datasource) Execute() (cty.Value, error) {
     output := DatasourceOutput{}
     emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
 
-    repo, err := git.PlainOpen("../..")
-    if(err != nil){
+    repo, err := git.PlainOpen(d.config.Directory)
+    if err != nil {
         return emptyOutput, err
     }
     hash, err := repo.ResolveRevision("HEAD")
-    if(err != nil){
+    if err != nil {
         return emptyOutput, err
     }
 
