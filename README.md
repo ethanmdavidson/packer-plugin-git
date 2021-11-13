@@ -1,20 +1,44 @@
-# Git Datasource Packer Plugin
+# Git Packer Plugin
 
-This repository is a plugin for packer which provides a data_source for the local git repo.
+[![tests](https://github.com/ethanmdavidson/packer-plugin-git/actions/workflows/run-tests.yml/badge.svg)](https://github.com/ethanmdavidson/packer-plugin-git/actions/workflows/run-tests.yml)
+
+This repository is a plugin for packer which provides access to git. Currently
+the only feature is a datasource that provides the current commit hash, because
+this was the only feature I personally needed. If there is another feature
+you want, feel free to open an issue or submit a PR.
 
 ## Usage
-TODO
+
+Add the plugin to your packer config:
+```hcl
+packer {
+  required_plugins {
+    git = {
+      version = ">=v0.0.1"
+      source  = "github.com/ethanmdavidson/git"
+    }
+  }
+}
+```
+
+Then configure the datasource (directory should be the root of the git repo):
+```hcl
+data "git-local" "test" {
+  directory = "../"
+}
+```
+
+Now you should have access to the commit hash:
+```hcl
+locals {
+  hash = data.git-local.test.commit_sha
+}
+```
 
 ## Running Acceptance Tests
 
-Make sure to install the plugin with `go build .` and to have Packer installed locally.
-Then source the built binary to the plugin path with `cp packer-plugin-scaffolding ~/.packer.d/plugins/packer-plugin-scaffolding`
-Once everything needed is set up, run:
-```
-PACKER_ACC=1 go test -count 1 -v ./... -timeout=120m
-```
-
-This will run the acceptance tests for all plugins in this set.
+Make sure to build and install the plugin with `make dev` and to have Packer installed locally.
+Then run `make testacc` to run the acceptance tests.
 
 ## Test Plugin Example Action
 
@@ -63,4 +87,4 @@ Once the first `docs.zip` file has been included into a release you will need to
 -	[Go](https://golang.org/doc/install) >= 1.16
 
 ## Packer Compatibility
-This scaffolding template is compatible with Packer >= v1.7.0
+This plugin is compatible with Packer >= v1.7.0
