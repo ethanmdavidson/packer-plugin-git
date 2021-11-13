@@ -23,5 +23,9 @@ build {
   sources = [
     "source.null.git-plugin-test",
   ]
-  name = "test-${local.hash}"
+  provisioner "shell-local" {
+    inline = [
+      "echo hash: ${local.hash}",
+    ]
+  }
 }
