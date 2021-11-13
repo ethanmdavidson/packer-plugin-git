@@ -1,4 +1,4 @@
 main
 dist/*
-packer-plugin-git-datasource
+packer-plugin-git
 .idea

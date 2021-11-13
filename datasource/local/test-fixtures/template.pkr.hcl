@@ -1,9 +1,9 @@
-data "git-datasource-local" "test" {
+data "git-local" "test" {
   directory = "../.."
 }
 
 locals {
-  hash = data.git-datasource-local.test.commit_sha
+  hash = data.git-local.test.commit_sha
 }
 
 source "null" "basic-example" {

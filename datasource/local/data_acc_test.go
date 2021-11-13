@@ -46,9 +46,9 @@ func TestAccScaffoldingDatasource(t *testing.T) {
 			}
 			logsString := string(logsBytes)
 
-			fooLog := "null.basic-example: hash: "
+			fooLog := "null.basic-example: hash: [0-9a-f]{5,40}"
 
-			if matched, _ := regexp.MatchString(fooLog+"[0-9a-f]{5,40}.*", logsString); !matched {
+			if matched, _ := regexp.MatchString(fooLog+".*", logsString); !matched {
 				t.Fatalf("logs doesn't contain expected hash value %q", logsString)
 			}
 			return nil

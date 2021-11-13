@@ -1,4 +1,4 @@
-NAME=git-datasource
+NAME=git
 BINARY=packer-plugin-${NAME}
 
 COUNT?=1
