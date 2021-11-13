@@ -1,0 +1,55 @@
+---
+description: >
+  The git-local data source is used to include data from your git repository
+  into your packer template.
+page_title: git-local - Data Sources
+nav_title: Git
+---
+
+# git-local
+
+Type: `git-local`
+
+The git-local data source is used to fetch data from your Git repository.
+It needs to be run inside an existing git repo.
+
+
+### Required
+
+There are no required configuration fields.
+
+
+### Optional
+
+- `directory` (string) - The path to a directory inside your git repo. The plugin will
+search for a git repo, starting in this directory and walking up through
+parent directories. Defaults to '.' (the directory packer was executed in).
+
+
+### Output
+
+- `commit_sha` (string) - The checksum or "hash" value of the current HEAD commit.
+
+
+### Example Usage
+
+This example shows how a truncated commit sha can be appended
+to an image name, with the full sha in the image description.
+
+```hcl
+data "git-local" "example" { }
+
+locals {
+  commit = data.git-local.example.commit_sha
+  truncated_sha = substr(data.git-local.example.commit_sha, 0, 8)
+}
+
+source "googlecompute" "example" {
+  image_name = "image-${local.truncated_sha}"
+  image_description = "This image was built from commit ${local.commit}
+}
+
+build {
+  sources = ["source.googlecompute.example"]
+}
+```

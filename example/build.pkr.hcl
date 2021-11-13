@@ -1,7 +1,7 @@
 packer {
   required_plugins {
     git = {
-      version = ">=v0.0.1"
+      version = ">=v0.1.0"
       source  = "github.com/ethanmdavidson/git"
     }
   }

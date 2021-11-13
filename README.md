@@ -15,18 +15,10 @@ Add the plugin to your packer config:
 packer {
   required_plugins {
     git = {
-      version = ">=v0.0.2"
+      version = ">=v0.1.0"
       source  = "github.com/ethanmdavidson/git"
     }
   }
-}
-```
-
-Then configure the datasource (directory should be the root of the git repo, relative
-to the location of the packer template):
-```hcl
-data "git-local" "test" {
-  directory = "../"
 }
 ```
 
