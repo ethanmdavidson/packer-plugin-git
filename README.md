@@ -2,8 +2,9 @@
 
 [![tests](https://github.com/ethanmdavidson/packer-plugin-git/actions/workflows/run-tests.yml/badge.svg)](https://github.com/ethanmdavidson/packer-plugin-git/actions/workflows/run-tests.yml)
 
-This repository is a plugin for packer which provides access to git. Currently
-the only feature is a datasource that provides the current commit hash, because
+A plugin for packer which provides access to git.
+
+Right now, the only feature is a datasource that provides the current commit hash, because
 this was the only feature I personally needed. If there is another feature
 you want, feel free to open an issue or submit a PR.
 
@@ -14,7 +15,7 @@ Add the plugin to your packer config:
 packer {
   required_plugins {
     git = {
-      version = ">=v0.0.1"
+      version = ">=v0.0.2"
       source  = "github.com/ethanmdavidson/git"
     }
   }
@@ -36,19 +37,23 @@ locals {
 }
 ```
 
-## Running Acceptance Tests
+See docs for more detailed information.
 
-Make sure to build and install the plugin with `make dev` and to have Packer installed locally.
-Then run `make testacc` to run the acceptance tests.
+## Development
 
-## Test Plugin Example Action
+The GNUmakefile has all the commands you need to work with this repo. 
+The typical development flow looks something like this:
 
-This scaffolding configures a [manually triggered plugin test action](/.github/workflows/test-plugin-example.yml).
-By default, the action will run Packer at the latest version to init, validate, and build the example configuration
-within the [example](example) folder. This is useful to quickly test a basic template of your plugin against Packer.
+1) Make code changes, and add test cases for these changes.
+2) Run `make generate` to recreate generated code.
+2) Run `make dev` to build the plugin and install it locally.
+3) Run `make testacc` to run the acceptance tests. If there are failures, go back to step 1.
+4) If the acceptance tests pass, commit and push!
 
-The example must contain the `required_plugins` block and require your plugin at the latest or any other released version.
-This will help test and validate plugin releases.
+For local development, you will need to install:
+- Packer >= 1.7
+- Go >= 1.16
+- Make
 
 ## Registering Documentation on Packer.io
 
