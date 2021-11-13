@@ -24,9 +24,10 @@ jobs:
 
       - name: Execute tests
         run: PACKER_ACC=1 go test -count 1 -v $(go list ./...) -timeout=120m
-        
+
       - name: Upload test artifacts for debugging
         uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: test-debug-artifacts
           path: |
