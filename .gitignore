@@ -2,3 +2,5 @@ main
 dist/*
 packer-plugin-git
 .idea
+docs.zip
+
