@@ -21,7 +21,8 @@ packer {
 }
 ```
 
-Then configure the datasource (directory should be the root of the git repo):
+Then configure the datasource (directory should be the root of the git repo, relative
+to the location of the packer template):
 ```hcl
 data "git-local" "test" {
   directory = "../"
