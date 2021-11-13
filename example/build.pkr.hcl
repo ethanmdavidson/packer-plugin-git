@@ -7,9 +7,7 @@ packer {
   }
 }
 
-data "git-local" "test" {
-  directory = "../"
-}
+data "git-local" "test" { }
 
 locals {
   hash = data.git-local.test.commit_sha

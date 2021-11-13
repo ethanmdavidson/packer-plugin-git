@@ -44,7 +44,8 @@ func (d *Datasource) Execute() (cty.Value, error) {
     output := DatasourceOutput{}
     emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
 
-    repo, err := git.PlainOpen(d.config.Directory)
+	openOptions :=  &git.PlainOpenOptions{DetectDotGit: true}
+    repo, err := git.PlainOpenWithOptions(d.config.Directory, openOptions)
     if err != nil {
         return emptyOutput, err
     }

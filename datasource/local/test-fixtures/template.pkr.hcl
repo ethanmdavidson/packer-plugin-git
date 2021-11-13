@@ -1,5 +1,5 @@
 data "git-local" "test" {
-  directory = "../.."
+  directory = ".."
 }
 
 locals {
