@@ -3,7 +3,7 @@ description: >
   The git-local data source is used to include data from your git repository
   into your packer template.
 page_title: git-local - Data Sources
-nav_title: Git
+nav_title: Git Local
 ---
 
 # git-local
@@ -46,7 +46,7 @@ locals {
 
 source "googlecompute" "example" {
   image_name = "image-${local.truncated_sha}"
-  image_description = "This image was built from commit ${local.commit}
+  image_description = "This image was built from commit ${local.commit}"
 }
 
 build {
