@@ -1,40 +1,27 @@
 packer {
   required_plugins {
-    scaffolding = {
+    git = {
       version = ">=v0.0.1"
-      source  = "github.com/ethanmdavidson/git-datasource"
+      source  = "github.com/ethanmdavidson/git"
     }
   }
 }
 
-source "scaffolding-my-builder" "foo-example" {
-  mock = local.foo
+data "git-datasource-local" "test" {
+  directory = "../"
 }
 
-source "scaffolding-my-builder" "bar-example" {
-  mock = local.bar
+locals {
+  hash = data.git-datasource-local.test.commit_sha
+}
+
+source "null" "git-plugin-test" {
+  communicator = "none"
 }
 
 build {
   sources = [
-    "source.scaffolding-my-builder.foo-example",
+    "source.null.git-plugin-test",
   ]
-
-  source "source.scaffolding-my-builder.bar-example" {
-    name = "bar"
-  }
-
-  provisioner "scaffolding-my-provisioner" {
-    only = ["scaffolding-my-builder.foo-example"]
-    mock = "foo: ${local.foo}"
-  }
-
-  provisioner "scaffolding-my-provisioner" {
-    only = ["scaffolding-my-builder.bar"]
-    mock = "bar: ${local.bar}"
-  }
-
-  post-processor "scaffolding-my-post-processor" {
-    mock = "post-processor mock-config"
-  }
+  name = "test-${local.hash}"
 }
