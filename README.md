@@ -24,10 +24,15 @@ packer {
 }
 ```
 
+Add the data source:
+```hcl
+data "git-local" "example" { }
+```
+
 Now you should have access to the commit hash:
 ```hcl
 locals {
-  hash = data.git-local.test.commit_sha
+  hash = data.git-local.example.commit_sha
 }
 ```
 
@@ -42,7 +47,7 @@ The typical development flow looks something like this:
 2) Run `make generate` to recreate generated code.
 2) Run `make dev` to build the plugin and install it locally.
 3) Run `make testacc` to run the acceptance tests. If there are failures, go back to step 1.
-4) If the acceptance tests pass, commit and push!
+4) If the acceptance tests pass: commit, push, and open a PR!
 
 For local development, you will need to install:
 - Packer >= 1.7
