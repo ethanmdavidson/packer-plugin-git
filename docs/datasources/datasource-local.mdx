@@ -37,11 +37,11 @@ This example shows how a truncated commit sha can be appended
 to an image name, with the full sha in the image description.
 
 ```hcl
-data "git-local" "example" { }
+data "git-local" "cwd" { }
 
 locals {
-  commit = data.git-local.example.commit_sha
-  truncated_sha = substr(data.git-local.example.commit_sha, 0, 8)
+  commit = data.git-local.cwd.commit_sha
+  truncated_sha = substr(data.git-local.cwd.commit_sha, 0, 8)
 }
 
 source "googlecompute" "example" {
