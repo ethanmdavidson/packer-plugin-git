@@ -17,7 +17,7 @@ Add the plugin to your packer config:
 packer {
   required_plugins {
     git = {
-      version = ">=v0.1.0"
+      version = ">=v0.2.0"
       source  = "github.com/ethanmdavidson/git"
     }
   }
@@ -26,13 +26,13 @@ packer {
 
 Add the data source:
 ```hcl
-data "git-local" "example" { }
+data "git-commit" "example" { }
 ```
 
-Now you should have access to the commit hash:
+Now you should have access to info about the commit:
 ```hcl
 locals {
-  hash = data.git-local.example.commit_sha
+  hash = data.git-commit.example.hash
 }
 ```
 

@@ -10,7 +10,8 @@ import (
 // FlatConfig is an auto-generated flat version of Config.
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatConfig struct {
-	Directory *string `mapstructure:"directory" cty:"directory" hcl:"directory"`
+	Path      *string `mapstructure:"path" cty:"path" hcl:"path"`
+	CommitIsh *string `mapstructure:"commit_ish" cty:"commit_ish" hcl:"commit_ish"`
 }
 
 // FlatMapstructure returns a new FlatConfig.
@@ -25,7 +26,8 @@ func (*Config) FlatMapstructure() interface{ HCL2Spec() map[string]hcldec.Spec }
 // The decoded values from this spec will then be applied to a FlatConfig.
 func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 	s := map[string]hcldec.Spec{
-		"directory": &hcldec.AttrSpec{Name: "directory", Type: cty.String, Required: false},
+		"path":       &hcldec.AttrSpec{Name: "path", Type: cty.String, Required: false},
+		"commit_ish": &hcldec.AttrSpec{Name: "commit_ish", Type: cty.String, Required: false},
 	}
 	return s
 }
@@ -33,7 +35,13 @@ func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 // FlatDatasourceOutput is an auto-generated flat version of DatasourceOutput.
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatDatasourceOutput struct {
-	CommitSha *string `mapstructure:"commit_sha" cty:"commit_sha" hcl:"commit_sha"`
+	Hash         *string  `mapstructure:"hash" cty:"hash" hcl:"hash"`
+	Author       *string  `mapstructure:"author" cty:"author" hcl:"author"`
+	Committer    *string  `mapstructure:"committer" cty:"committer" hcl:"committer"`
+	PGPSignature *string  `mapstructure:"pgp_signature" cty:"pgp_signature" hcl:"pgp_signature"`
+	Message      *string  `mapstructure:"message" cty:"message" hcl:"message"`
+	TreeHash     *string  `mapstructure:"tree_hash" cty:"tree_hash" hcl:"tree_hash"`
+	ParentHashes []string `mapstructure:"parent_hashes" cty:"parent_hashes" hcl:"parent_hashes"`
 }
 
 // FlatMapstructure returns a new FlatDatasourceOutput.
@@ -48,7 +56,13 @@ func (*DatasourceOutput) FlatMapstructure() interface{ HCL2Spec() map[string]hcl
 // The decoded values from this spec will then be applied to a FlatDatasourceOutput.
 func (*FlatDatasourceOutput) HCL2Spec() map[string]hcldec.Spec {
 	s := map[string]hcldec.Spec{
-		"commit_sha": &hcldec.AttrSpec{Name: "commit_sha", Type: cty.String, Required: false},
+		"hash":          &hcldec.AttrSpec{Name: "hash", Type: cty.String, Required: false},
+		"author":        &hcldec.AttrSpec{Name: "author", Type: cty.String, Required: false},
+		"committer":     &hcldec.AttrSpec{Name: "committer", Type: cty.String, Required: false},
+		"pgp_signature": &hcldec.AttrSpec{Name: "pgp_signature", Type: cty.String, Required: false},
+		"message":       &hcldec.AttrSpec{Name: "message", Type: cty.String, Required: false},
+		"tree_hash":     &hcldec.AttrSpec{Name: "tree_hash", Type: cty.String, Required: false},
+		"parent_hashes": &hcldec.AttrSpec{Name: "parent_hashes", Type: cty.List(cty.String), Required: false},
 	}
 	return s
 }

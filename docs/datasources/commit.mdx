@@ -21,32 +21,43 @@ There are no required configuration fields.
 
 ### Optional
 
-- `directory` (string) - The path to a directory inside your git repo. The plugin will
+- `path` (string) - The path to a directory inside your git repo. The plugin will
 search for a git repo, starting in this directory and walking up through
 parent directories. Defaults to '.' (the directory packer was executed in).
+
+- `commit_ish` (string) - A [Commit-Ish value](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefcommit-ishacommit-ishalsocommittish).
+(e.g. tag) pointing to the target commit object.
+See [go-git ResolveRevision](https://pkg.go.dev/github.com/go-git/go-git/v5#Repository.ResolveRevision)
+for the list of supported values. Defaults to 'HEAD'.
 
 
 ### Output
 
-- `commit_sha` (string) - The SHA1 checksum or "hash" value of the current HEAD commit.
+- `hash` (string) - The SHA1 checksum or "hash" value of the current HEAD commit.
+- `author` (string) - The author of the commit, in standard `A U Thor <author@example.com>` format.
+- `committer` (string) - The committer of the commit, in same format as author.
+- `pgp_signature` (string) - The PGP signature attached to the commit.
+- `message` (string) - The commit message.
+- `tree_hash` (string) - The hash of the root tree of the commit.
+- `parent_hashes` (list[string]) - The hashes of the parent commits.
 
 
 ### Example Usage
 
 This example shows how a truncated commit sha can be appended
-to an image name, with the full sha in the image description.
+to an image name, with the author in the image description.
 
 ```hcl
 data "git-commit" "cwd-head" { }
 
 locals {
-  commit = data.git-commit.cwd-head.commit_sha
-  truncated_sha = substr(data.git-commit.cwd-head.commit_sha, 0, 8)
+  truncated_sha = substr(data.git-commit.cwd-head.hash, 0, 8)
+  author = data.git-commit.cwd-head.author
 }
 
 source "googlecompute" "example" {
   image_name = "image-${local.truncated_sha}"
-  image_description = "This image was built from commit ${local.commit}"
+  image_description = "Built from a commit by ${local.author}"
 }
 
 build {
