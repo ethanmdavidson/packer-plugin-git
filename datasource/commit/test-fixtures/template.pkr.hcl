@@ -1,9 +1,9 @@
-data "git-local" "test" {
+data "git-commit" "test" {
   directory = ".."
 }
 
 locals {
-  hash = data.git-local.test.commit_sha
+  hash = data.git-commit.test.commit_sha
 }
 
 source "null" "basic-example" {

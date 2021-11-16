@@ -18,7 +18,7 @@ var testDatasourceHCL2Basic string
 // Run with: PACKER_ACC=1 go test -count 1 -v ./datasource/git/data_acc_test.go  -timeout=120m
 func TestAccScaffoldingDatasource(t *testing.T) {
 	testCase := &acctest.PluginTestCase{
-		Name: "git_local_basic_test",
+		Name: "git_commit_basic_test",
 		Setup: func() error {
 			return nil
 		},
@@ -26,7 +26,7 @@ func TestAccScaffoldingDatasource(t *testing.T) {
 			return nil
 		},
 		Template: testDatasourceHCL2Basic,
-		Type:     "git-local",
+		Type:     "git-commit",
 		Check: func(buildCommand *exec.Cmd, logfile string) error {
 			if buildCommand.ProcessState != nil {
 				if buildCommand.ProcessState.ExitCode() != 0 {

@@ -3,4 +3,4 @@ dist/*
 packer-plugin-git
 .idea
 docs.zip
-
+**/packer_log*.txt

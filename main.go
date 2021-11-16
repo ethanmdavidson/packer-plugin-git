@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	data "packer-plugin-git/datasource/local"
+	commit "packer-plugin-git/datasource/commit"
 
 	"github.com/hashicorp/packer-plugin-sdk/plugin"
 	"github.com/hashicorp/packer-plugin-sdk/version"
@@ -11,12 +11,12 @@ import (
 
 var (
 	// Version is the main version number that is being run at the moment.
-	Version = "0.1.1"
+	Version = "0.2.9"
 
 	// VersionPrerelease is A pre-release marker for the Version. If this is ""
 	// (empty string) then it means that it is a final release. Otherwise, this
 	// is a pre-release such as "dev" (in development), "beta", "rc1", etc.
-	VersionPrerelease = ""
+	VersionPrerelease = "dev"
 
 	// PluginVersion is used by the plugin set to allow Packer to recognize
 	// what version this plugin is.
@@ -25,7 +25,7 @@ var (
 
 func main() {
 	pps := plugin.NewSet()
-	pps.RegisterDatasource("local", new(data.Datasource))
+	pps.RegisterDatasource("commit", new(commit.Datasource))
 	pps.SetVersion(PluginVersion)
 	err := pps.Run()
 	if err != nil {

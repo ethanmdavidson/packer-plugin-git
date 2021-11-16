@@ -1,16 +1,16 @@
 ---
 description: >
-  The git-local data source is used to include data from your git repository
-  into your packer template.
-page_title: git-local - Data Sources
-nav_title: Git Local
+  The git commit data source is used to include information about
+  a git commit in your packer template.
+page_title: Commit - Data Sources
+nav_title: Commit
 ---
 
-# git-local
+# Commit
 
-Type: `git-local`
+Type: `git-commit`
 
-The git-local data source is used to fetch data from your Git repository.
+The commit data source is used to fetch information about a specific commit. 
 It needs to be run inside an existing git repo.
 
 
@@ -28,7 +28,7 @@ parent directories. Defaults to '.' (the directory packer was executed in).
 
 ### Output
 
-- `commit_sha` (string) - The checksum or "hash" value of the current HEAD commit.
+- `commit_sha` (string) - The SHA1 checksum or "hash" value of the current HEAD commit.
 
 
 ### Example Usage
@@ -37,11 +37,11 @@ This example shows how a truncated commit sha can be appended
 to an image name, with the full sha in the image description.
 
 ```hcl
-data "git-local" "cwd" { }
+data "git-commit" "cwd-head" { }
 
 locals {
-  commit = data.git-local.cwd.commit_sha
-  truncated_sha = substr(data.git-local.cwd.commit_sha, 0, 8)
+  commit = data.git-commit.cwd-head.commit_sha
+  truncated_sha = substr(data.git-commit.cwd-head.commit_sha, 0, 8)
 }
 
 source "googlecompute" "example" {

@@ -1,54 +1,9 @@
-# Git Plugin
+# Git Components
 
-## Installation
+The Git plugin is able to interact with Git repos through Packer.
+Currently, it comes with the following components.
 
-### Using pre-built releases
+### Data Sources:
 
-#### Using the `packer init` command
-
-Starting from version 1.7, Packer supports a new `packer init` command allowing
-automatic installation of Packer plugins. Read the
-[Packer documentation](https://www.packer.io/docs/commands/init) for more information.
-
-To install this plugin, copy and paste this code into your Packer configuration .
-Then, run [`packer init`](https://www.packer.io/docs/commands/init).
-
-```hcl
-packer {
-  required_plugins {
-    name = {
-      version = ">= 0.1.0"
-      source  = "github.com/ethanmdavidson/git-datasource"
-    }
-  }
-}
-```
-
-#### Manual installation
-
-You can find pre-built binary releases of the plugin [here](https://github.com/ethanmdavidson/packer-plugin-git/releases).
-Once you have downloaded the latest archive corresponding to your target OS,
-uncompress it to retrieve the plugin binary file corresponding to your platform.
-To install the plugin, please follow the Packer documentation on
-[installing a plugin](https://www.packer.io/docs/extending/plugins/#installing-plugins).
-
-
-#### From Source
-
-If you prefer to build the plugin from its source code, clone the GitHub
-repository locally and run the command `go build` from the root
-directory. Upon successful compilation, a `packer-plugin-git` plugin
-binary file can be found in the root directory.
-To install the compiled plugin, please follow the official Packer documentation
-on [installing a plugin](https://www.packer.io/docs/extending/plugins/#installing-plugins).
-
-
-## Plugin Contents
-
-The Git plugin provides an interface between Packer and Git, containing:
-
-### Data Sources
-
-- [local](/docs/datasources/datasource-local.mdx) - The local data source is used to
-  include data from your local git repo into your packer template.
-
+- [commit](/docs/datasources/commit-sha.mdx) - Retrieve information
+    about a specific commit, e.g. the commit hash.
