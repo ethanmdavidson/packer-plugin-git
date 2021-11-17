@@ -47,10 +47,12 @@ func TestAccGitTreeDatasource(t *testing.T) {
 			logsString := string(logsBytes)
 
 			hashLog := "null.basic-example: hash: [0-9a-f]{5,40}"
-			namesLog := "null.basic-example: filenames: asdf"
+			countLog := "null.basic-example: fileCount: [0-9]*"
+			namesLog := "null.basic-example: files: [^\\n]*README.*"
 
 			checkMatch(t, logsString, "hash", hashLog)
-			checkMatch(t, logsString, "filenames", namesLog)
+			checkMatch(t, logsString, "fileCount", countLog)
+			checkMatch(t, logsString, "files", namesLog)
 			return nil
 		},
 	}

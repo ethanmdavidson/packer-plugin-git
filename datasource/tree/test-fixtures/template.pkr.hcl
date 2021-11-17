@@ -5,9 +5,8 @@ source "null" "basic-example" {
 }
 
 locals {
-  numFiles = length(data.git-tree.test.entries)
-  files = join(",", data.git-tree.test.entries[*].name)
-  allData = [for e in data.git-tree.test.entries: "${e.name}:${e.mode}:${e.hash}"]
+  numFiles = length(data.git-tree.test.files)
+  files = join(",", data.git-tree.test.files)
 }
 
 build {
@@ -18,9 +17,8 @@ build {
   provisioner "shell-local" {
     inline = [
       "echo 'hash: ${data.git-tree.test.hash}'",
-      "echo 'filenames: ${local.files}'",
-      "echo 'test: ${local.numFiles}'",
-      "echo 'alldata: ${join(",", local.allData)}'",
+      "echo 'fileCount: ${local.numFiles}'",
+      "echo 'files: ${local.files}'",
     ]
   }
 }

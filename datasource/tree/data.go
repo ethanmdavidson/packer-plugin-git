@@ -3,7 +3,6 @@ package tree
 
 import (
 	"errors"
-	"io"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
@@ -25,7 +24,7 @@ type Datasource struct {
 
 type DatasourceOutput struct {
 	Hash string `mapstructure:"hash"`
-	Entries []map[string]string `mapstructure:"entries"`
+	Files []string `mapstructure:"files"`
 }
 
 func (d *Datasource) ConfigSpec() hcldec.ObjectSpec {
@@ -51,18 +50,18 @@ func (d *Datasource) OutputSpec() hcldec.ObjectSpec {
 }
 
 func (d *Datasource) Execute() (cty.Value, error) {
-    output := DatasourceOutput{}
-    emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
+	output := DatasourceOutput{}
+	emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
 
 	openOptions :=  &git.PlainOpenOptions{DetectDotGit: true}
 	repo, err := git.PlainOpenWithOptions(d.config.Path, openOptions)
-    if err != nil {
-        return emptyOutput, err
-    }
-    hash, err := repo.ResolveRevision(plumbing.Revision(d.config.CommitIsh))
-    if err != nil {
-        return emptyOutput, err
-    }
+	if err != nil {
+		return emptyOutput, err
+	}
+	hash, err := repo.ResolveRevision(plumbing.Revision(d.config.CommitIsh))
+	if err != nil {
+		return emptyOutput, err
+	}
 	commit, err := repo.CommitObject(*hash)
 	if err != nil {
 		return emptyOutput, errors.New("couldn't find commit")
@@ -73,15 +72,12 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	}
 
 	output.Hash = hash.String()
-	treeWalker := object.NewTreeWalker(tree, true, make(map[plumbing.Hash]bool))
-	name, entry, err := treeWalker.Next()
-	for err != io.EOF {
-		entryMap := make(map[string]string)
-		entryMap["name"] = name
-		entryMap["mode"] = entry.Mode.String()
-		entryMap["hash"] = entry.Hash.String()
-		output.Entries = append(output.Entries, entryMap)
-	}
+	tree.Files().ForEach(func(file *object.File) error {
+		if file != nil {
+			output.Files = append(output.Files, file.Name)
+		}
+		return nil
+	})
 
 	return hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec()), nil
 }
