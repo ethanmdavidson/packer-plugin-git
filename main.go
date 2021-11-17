@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	commit "packer-plugin-git/datasource/commit"
+	tree "packer-plugin-git/datasource/tree"
 
 	"github.com/hashicorp/packer-plugin-sdk/plugin"
 	"github.com/hashicorp/packer-plugin-sdk/version"
@@ -26,6 +27,7 @@ var (
 func main() {
 	pps := plugin.NewSet()
 	pps.RegisterDatasource("commit", new(commit.Datasource))
+	pps.RegisterDatasource("tree", new(tree.Datasource))
 	pps.SetVersion(PluginVersion)
 	err := pps.Run()
 	if err != nil {

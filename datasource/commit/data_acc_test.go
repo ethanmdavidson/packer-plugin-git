@@ -1,4 +1,4 @@
-package local
+package commit
 
 import (
 	_ "embed"

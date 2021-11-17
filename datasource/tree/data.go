@@ -1,9 +1,13 @@
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput
-package local
+package tree
 
 import (
+	"errors"
+	"io"
+
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/hashicorp/packer-plugin-sdk/hcl2helper"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
@@ -21,11 +25,7 @@ type Datasource struct {
 
 type DatasourceOutput struct {
 	Hash string `mapstructure:"hash"`
-	/*returning a list of filenames is not optimal, since each tree entry has
-		a mode and a hash in addition to the name. However, it's not clear to
-		me if there is any elegant way for packer to represent a list of maps
-		or anything like that */
-	Entries []map[string]string `mapstructure:"entries"` //I'm trying a list of maps, let's see what happens
+	Entries []map[string]string `mapstructure:"entries"`
 }
 
 func (d *Datasource) ConfigSpec() hcldec.ObjectSpec {
@@ -65,17 +65,22 @@ func (d *Datasource) Execute() (cty.Value, error) {
     }
 	commit, err := repo.CommitObject(*hash)
 	if err != nil {
-		return emptyOutput, err
+		return emptyOutput, errors.New("couldn't find commit")
+	}
+	tree, err := commit.Tree()
+	if err != nil {
+		return emptyOutput, errors.New("couldn't find tree")
 	}
 
 	output.Hash = hash.String()
-	output.Author = commit.Author.String()
-	output.Committer = commit.Committer.String()
-	output.PGPSignature = commit.PGPSignature
-	output.Message = commit.Message
-	output.TreeHash = commit.TreeHash.String()
-	for _, parent := range commit.ParentHashes {
-		output.ParentHashes = append(output.ParentHashes, parent.String())
+	treeWalker := object.NewTreeWalker(tree, true, make(map[plumbing.Hash]bool))
+	name, entry, err := treeWalker.Next()
+	for err != io.EOF {
+		entryMap := make(map[string]string)
+		entryMap["name"] = name
+		entryMap["mode"] = entry.Mode.String()
+		entryMap["hash"] = entry.Hash.String()
+		output.Entries = append(output.Entries, entryMap)
 	}
 
 	return hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec()), nil

@@ -1,4 +1,4 @@
-package local
+package tree
 
 import (
 	_ "embed"
@@ -47,8 +47,10 @@ func TestAccGitTreeDatasource(t *testing.T) {
 			logsString := string(logsBytes)
 
 			hashLog := "null.basic-example: hash: [0-9a-f]{5,40}"
+			namesLog := "null.basic-example: filenames: asdf"
 
 			checkMatch(t, logsString, "hash", hashLog)
+			checkMatch(t, logsString, "filenames", namesLog)
 			return nil
 		},
 	}
