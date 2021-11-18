@@ -1,4 +1,4 @@
-package commit
+package tree
 
 import (
 	_ "embed"
@@ -15,10 +15,10 @@ import (
 //go:embed test-fixtures/template.pkr.hcl
 var testDatasourceHCL2Basic string
 
-// Run with: PACKER_ACC=1 go test -count 1 -v ./datasource/commit/data_acc_test.go  -timeout=120m
-func TestAccGitCommitDatasource(t *testing.T) {
+// Run with: PACKER_ACC=1 go test -count 1 -v ./datasource/tree/data_acc_test.go  -timeout=120m
+func TestAccGitTreeDatasource(t *testing.T) {
 	testCase := &acctest.PluginTestCase{
-		Name: "git_commit_basic_test",
+		Name: "git_tree_basic_test",
 		Setup: func() error {
 			return nil
 		},
@@ -26,7 +26,7 @@ func TestAccGitCommitDatasource(t *testing.T) {
 			return nil
 		},
 		Template: testDatasourceHCL2Basic,
-		Type:     "git-commit",
+		Type:     "git-tree",
 		Check: func(buildCommand *exec.Cmd, logfile string) error {
 			if buildCommand.ProcessState != nil {
 				if buildCommand.ProcessState.ExitCode() != 0 {
@@ -47,19 +47,12 @@ func TestAccGitCommitDatasource(t *testing.T) {
 			logsString := string(logsBytes)
 
 			hashLog := "null.basic-example: hash: [0-9a-f]{5,40}"
-			authorLog := "null.basic-example: author: [^\\n]*<[^\\n]*>"
-			committerLog := "null.basic-example: committer: [^\\n]*<[^\\n]*>"
-			//Can't test pgp_signature since that isn't set on most of my commits
-			messageLog := "null.basic-example: message: .*"
-			treeHashLog := "null.basic-example: tree_hash: [0-9a-f]{5,40}"
-			parentLog := "null.basic-example: first_parent: [0-9a-f]{5,40}"
+			countLog := "null.basic-example: fileCount: [0-9]*"
+			namesLog := "null.basic-example: files: [^\\n]*README.*"
 
 			checkMatch(t, logsString, "hash", hashLog)
-			checkMatch(t, logsString, "author", authorLog)
-			checkMatch(t, logsString, "committer", committerLog)
-			checkMatch(t, logsString, "message", messageLog)
-			checkMatch(t, logsString, "tree_hash", treeHashLog)
-			checkMatch(t, logsString, "first_parent", parentLog)
+			checkMatch(t, logsString, "fileCount", countLog)
+			checkMatch(t, logsString, "files", namesLog)
 			return nil
 		},
 	}

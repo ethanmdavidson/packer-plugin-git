@@ -4,3 +4,4 @@ packer-plugin-git
 .idea
 docs.zip
 **/packer_log*.txt
+**/git_*test.pkr.hcl

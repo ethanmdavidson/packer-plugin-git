@@ -1,9 +1,12 @@
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput
-package commit
+package tree
 
 import (
+	"errors"
+
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/hashicorp/packer-plugin-sdk/hcl2helper"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
@@ -12,7 +15,7 @@ import (
 
 type Config struct {
 	Path string `mapstructure:"path"`
-	CommitIsh string `mapstructure:"commit_ish"`
+	CommitIsh string `mapstructure:"commit_ish"` //should this be tree-ish instead?
 }
 
 type Datasource struct {
@@ -21,12 +24,7 @@ type Datasource struct {
 
 type DatasourceOutput struct {
 	Hash string `mapstructure:"hash"`
-	Author string `mapstructure:"author"`
-	Committer string `mapstructure:"committer"`
-	PGPSignature string `mapstructure:"pgp_signature"`
-	Message string `mapstructure:"message"`
-	TreeHash string `mapstructure:"tree_hash"`
-	ParentHashes []string `mapstructure:"parent_hashes"`
+	Files []string `mapstructure:"files"`
 }
 
 func (d *Datasource) ConfigSpec() hcldec.ObjectSpec {
@@ -52,32 +50,34 @@ func (d *Datasource) OutputSpec() hcldec.ObjectSpec {
 }
 
 func (d *Datasource) Execute() (cty.Value, error) {
-    output := DatasourceOutput{}
-    emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
+	output := DatasourceOutput{}
+	emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
 
 	openOptions :=  &git.PlainOpenOptions{DetectDotGit: true}
 	repo, err := git.PlainOpenWithOptions(d.config.Path, openOptions)
-    if err != nil {
-        return emptyOutput, err
-    }
-    hash, err := repo.ResolveRevision(plumbing.Revision(d.config.CommitIsh))
-    if err != nil {
-        return emptyOutput, err
-    }
-	commit, err := repo.CommitObject(*hash)
 	if err != nil {
 		return emptyOutput, err
 	}
+	hash, err := repo.ResolveRevision(plumbing.Revision(d.config.CommitIsh))
+	if err != nil {
+		return emptyOutput, err
+	}
+	commit, err := repo.CommitObject(*hash)
+	if err != nil {
+		return emptyOutput, errors.New("couldn't find commit")
+	}
+	tree, err := commit.Tree()
+	if err != nil {
+		return emptyOutput, errors.New("couldn't find tree")
+	}
 
 	output.Hash = hash.String()
-	output.Author = commit.Author.String()
-	output.Committer = commit.Committer.String()
-	output.PGPSignature = commit.PGPSignature
-	output.Message = commit.Message
-	output.TreeHash = commit.TreeHash.String()
-	for _, parent := range commit.ParentHashes {
-		output.ParentHashes = append(output.ParentHashes, parent.String())
-	}
+	tree.Files().ForEach(func(file *object.File) error {
+		if file != nil {
+			output.Files = append(output.Files, file.Name)
+		}
+		return nil
+	})
 
 	return hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec()), nil
 }
