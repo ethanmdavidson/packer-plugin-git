@@ -4,10 +4,6 @@
 
 A plugin for packer which provides access to git. Compatible with Packer >= 1.7.0
 
-Right now, the only feature is a datasource that provides the current commit hash, because
-this was the only feature I personally needed. If there is another feature
-you want, feel free to open an issue or submit a PR.
-
 Under the hood, it uses [go-git](https://github.com/go-git/go-git).
 
 ## Usage
@@ -53,3 +49,4 @@ For local development, you will need to install:
 - Packer >= 1.7
 - Go >= 1.16
 - Make
+

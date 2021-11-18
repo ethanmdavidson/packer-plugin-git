@@ -7,7 +7,7 @@ packer {
   }
 }
 
-data "git-commit" "test" { }
+data "git-commit" "test" {}
 
 locals {
   hash = data.git-commit.test.hash

@@ -13,6 +13,8 @@ The following data sources are currently supported:
 
 - [commit](/docs/datasources/git/commit) - Retrieve information
     about a commit, e.g. the commit hash.
+- [tree](/docs/datasources/git/tree) - Retrieve the list of 
+    files present in a specific commit, similar to `git ls-tree -r`.
 
 ## How to use this plugin
 
@@ -45,3 +47,4 @@ binary file can be found in the root directory.
 Once the binary is downloaded or built, please follow the Packer 
 documentation on
 [installing a plugin](https://www.packer.io/docs/extending/plugins/#installing-plugins).
+
