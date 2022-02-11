@@ -1,10 +1,4 @@
 packer {
-  required_plugins {
-    git = {
-      version = ">=v0.2.0"
-      source  = "github.com/ethanmdavidson/git"
-    }
-  }
 }
 
 data "git-commit" "test" {}
@@ -13,17 +7,18 @@ locals {
   hash = data.git-commit.test.hash
 }
 
-source "null" "git-plugin-test" {
+source "null" "git-plugin-test-commit" {
   communicator = "none"
 }
 
 build {
   sources = [
-    "source.null.git-plugin-test",
+    "source.null.git-plugin-test-commit",
   ]
   provisioner "shell-local" {
     inline = [
       "echo 'hash: ${local.hash}'",
+      "echo 'branch: ${data.git-commit.test.branch}'",
       "echo 'author: ${data.git-commit.test.author}'",
       "echo 'committer: ${data.git-commit.test.committer}'",
       "echo 'pgp_signature: ${data.git-commit.test.pgp_signature}'",
