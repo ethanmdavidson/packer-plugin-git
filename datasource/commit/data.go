@@ -11,7 +11,7 @@ import (
 )
 
 type Config struct {
-	Path string `mapstructure:"path"`
+	Path      string `mapstructure:"path"`
 	CommitIsh string `mapstructure:"commit_ish"`
 }
 
@@ -20,12 +20,12 @@ type Datasource struct {
 }
 
 type DatasourceOutput struct {
-	Hash string `mapstructure:"hash"`
-	Author string `mapstructure:"author"`
-	Committer string `mapstructure:"committer"`
-	PGPSignature string `mapstructure:"pgp_signature"`
-	Message string `mapstructure:"message"`
-	TreeHash string `mapstructure:"tree_hash"`
+	Hash         string   `mapstructure:"hash"`
+	Author       string   `mapstructure:"author"`
+	Committer    string   `mapstructure:"committer"`
+	PGPSignature string   `mapstructure:"pgp_signature"`
+	Message      string   `mapstructure:"message"`
+	TreeHash     string   `mapstructure:"tree_hash"`
 	ParentHashes []string `mapstructure:"parent_hashes"`
 }
 
@@ -39,7 +39,7 @@ func (d *Datasource) Configure(raws ...interface{}) error {
 		return err
 	}
 	if d.config.Path == "" {
-	    d.config.Path = "."
+		d.config.Path = "."
 	}
 	if d.config.CommitIsh == "" {
 		d.config.CommitIsh = "HEAD"
@@ -52,18 +52,18 @@ func (d *Datasource) OutputSpec() hcldec.ObjectSpec {
 }
 
 func (d *Datasource) Execute() (cty.Value, error) {
-    output := DatasourceOutput{}
-    emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
+	output := DatasourceOutput{}
+	emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
 
-	openOptions :=  &git.PlainOpenOptions{DetectDotGit: true}
+	openOptions := &git.PlainOpenOptions{DetectDotGit: true}
 	repo, err := git.PlainOpenWithOptions(d.config.Path, openOptions)
-    if err != nil {
-        return emptyOutput, err
-    }
-    hash, err := repo.ResolveRevision(plumbing.Revision(d.config.CommitIsh))
-    if err != nil {
-        return emptyOutput, err
-    }
+	if err != nil {
+		return emptyOutput, err
+	}
+	hash, err := repo.ResolveRevision(plumbing.Revision(d.config.CommitIsh))
+	if err != nil {
+		return emptyOutput, err
+	}
 	commit, err := repo.CommitObject(*hash)
 	if err != nil {
 		return emptyOutput, err
