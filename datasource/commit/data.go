@@ -2,6 +2,8 @@
 package commit
 
 import (
+	"log"
+
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/hashicorp/hcl/v2/hcldec"
@@ -21,6 +23,7 @@ type Datasource struct {
 
 type DatasourceOutput struct {
 	Hash         string   `mapstructure:"hash"`
+	Branch       string   `mapstructure:"branch"`
 	Author       string   `mapstructure:"author"`
 	Committer    string   `mapstructure:"committer"`
 	PGPSignature string   `mapstructure:"pgp_signature"`
@@ -64,12 +67,17 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	if err != nil {
 		return emptyOutput, err
 	}
+	branch, err := repo.Head()
+	if err != nil {
+		log.Fatal(err)
+	}
 	commit, err := repo.CommitObject(*hash)
 	if err != nil {
 		return emptyOutput, err
 	}
 
 	output.Hash = hash.String()
+	output.Branch = branch.Name().Short()
 	output.Author = commit.Author.String()
 	output.Committer = commit.Committer.String()
 	output.PGPSignature = commit.PGPSignature

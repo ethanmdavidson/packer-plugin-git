@@ -36,6 +36,7 @@ func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatDatasourceOutput struct {
 	Hash         *string  `mapstructure:"hash" cty:"hash" hcl:"hash"`
+	Branch       *string  `mapstructure:"branch" cty:"branch" hcl:"branch"`
 	Author       *string  `mapstructure:"author" cty:"author" hcl:"author"`
 	Committer    *string  `mapstructure:"committer" cty:"committer" hcl:"committer"`
 	PGPSignature *string  `mapstructure:"pgp_signature" cty:"pgp_signature" hcl:"pgp_signature"`
@@ -57,6 +58,7 @@ func (*DatasourceOutput) FlatMapstructure() interface{ HCL2Spec() map[string]hcl
 func (*FlatDatasourceOutput) HCL2Spec() map[string]hcldec.Spec {
 	s := map[string]hcldec.Spec{
 		"hash":          &hcldec.AttrSpec{Name: "hash", Type: cty.String, Required: false},
+		"branch":        &hcldec.AttrSpec{Name: "branch", Type: cty.String, Required: false},
 		"author":        &hcldec.AttrSpec{Name: "author", Type: cty.String, Required: false},
 		"committer":     &hcldec.AttrSpec{Name: "committer", Type: cty.String, Required: false},
 		"pgp_signature": &hcldec.AttrSpec{Name: "pgp_signature", Type: cty.String, Required: false},
