@@ -20,13 +20,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
+      - name: Init
+        uses: hashicorp/packer-github-actions@master
         with:
-          go-version: 1.17
-
-      - name: Make manual init of packer plugin from this branch
-        run: make build && mv packer-plugin-git ./example
+          working_directory: './example'
+          command: init
 
       - name: Validate
         uses: hashicorp/packer-github-actions@master
