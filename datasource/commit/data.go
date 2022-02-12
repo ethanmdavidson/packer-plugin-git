@@ -69,7 +69,7 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	if err != nil {
 		return emptyOutput, err
 	}
-	var branchesAtResolvedCommit []string
+	branchesAtResolvedCommit := make([]string, 0)
 	_ = branches.ForEach(func(ref *plumbing.Reference) error {
 		if ref.Hash().String() == hash.String() {
 			branchesAtResolvedCommit = append(branchesAtResolvedCommit, ref.Name().Short())

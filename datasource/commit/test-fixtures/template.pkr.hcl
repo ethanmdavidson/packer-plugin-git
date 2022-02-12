@@ -18,7 +18,7 @@ build {
   provisioner "shell-local" {
     inline = [
       "echo 'hash: ${local.hash}'",
-      "echo 'first_branch: ${data.git-commit.test.branches[0]}'",
+      "echo 'num_branches: ${length(data.git-commit.test.branches)}'",
       "echo 'author: ${data.git-commit.test.author}'",
       "echo 'committer: ${data.git-commit.test.committer}'",
       "echo 'pgp_signature: ${data.git-commit.test.pgp_signature}'",
