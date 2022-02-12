@@ -46,9 +46,9 @@ The typical development flow looks something like this:
 2) Run `make generate` to recreate generated code.
 2) Run `make dev` to build the plugin and install it locally.
 3) Run `make testacc` to run the acceptance tests. If there are failures, go back to step 1.
-4) Update examples in `./example` directory if required.
+4) Update examples in `./example` directory if necessary.
 5) Run `make run-example` to test examples.
-6) If above steps done: commit, push, and open a PR!
+6) Once the above steps are complete: commit, push, and open a PR!
 
 For local development, you will need to install:
 - Packer >= 1.7
