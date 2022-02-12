@@ -2,8 +2,6 @@
 package commit
 
 import (
-	"log"
-
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/hashicorp/hcl/v2/hcldec"
@@ -23,7 +21,7 @@ type Datasource struct {
 
 type DatasourceOutput struct {
 	Hash         string   `mapstructure:"hash"`
-	Branch       string   `mapstructure:"branch"`
+	Branches     []string `mapstructure:"branches"`
 	Author       string   `mapstructure:"author"`
 	Committer    string   `mapstructure:"committer"`
 	PGPSignature string   `mapstructure:"pgp_signature"`
@@ -67,17 +65,24 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	if err != nil {
 		return emptyOutput, err
 	}
-	branch, err := repo.Head()
+	branches, err := repo.Branches()
 	if err != nil {
-		log.Fatal(err)
+		return emptyOutput, err
 	}
+	var branchesAtResolvedCommit []string
+	_ = branches.ForEach(func(ref *plumbing.Reference) error {
+		if ref.Hash().String() == hash.String() {
+			branchesAtResolvedCommit = append(branchesAtResolvedCommit, ref.Name().Short())
+		}
+		return nil
+	})
 	commit, err := repo.CommitObject(*hash)
 	if err != nil {
 		return emptyOutput, err
 	}
 
 	output.Hash = hash.String()
-	output.Branch = branch.Name().Short()
+	output.Branches = branchesAtResolvedCommit
 	output.Author = commit.Author.String()
 	output.Committer = commit.Committer.String()
 	output.PGPSignature = commit.PGPSignature
