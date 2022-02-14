@@ -1,5 +1,4 @@
-packer {
-}
+packer {}
 
 data "git-commit" "test" {}
 
