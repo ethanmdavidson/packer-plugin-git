@@ -1,5 +1,4 @@
-packer {
-}
+packer {}
 
 data git-tree example {}
 
@@ -24,4 +23,3 @@ build {
     ]
   }
 }
-
