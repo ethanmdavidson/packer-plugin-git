@@ -14,7 +14,7 @@ import (
 )
 
 type Config struct {
-	Path string `mapstructure:"path"`
+	Path      string `mapstructure:"path"`
 	CommitIsh string `mapstructure:"commit_ish"` //should this be tree-ish instead?
 }
 
@@ -23,7 +23,7 @@ type Datasource struct {
 }
 
 type DatasourceOutput struct {
-	Hash string `mapstructure:"hash"`
+	Hash  string   `mapstructure:"hash"`
 	Files []string `mapstructure:"files"`
 }
 
@@ -37,7 +37,7 @@ func (d *Datasource) Configure(raws ...interface{}) error {
 		return err
 	}
 	if d.config.Path == "" {
-	    d.config.Path = "."
+		d.config.Path = "."
 	}
 	if d.config.CommitIsh == "" {
 		d.config.CommitIsh = "HEAD"
@@ -53,7 +53,7 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	output := DatasourceOutput{}
 	emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
 
-	openOptions :=  &git.PlainOpenOptions{DetectDotGit: true}
+	openOptions := &git.PlainOpenOptions{DetectDotGit: true}
 	repo, err := git.PlainOpenWithOptions(d.config.Path, openOptions)
 	if err != nil {
 		return emptyOutput, err

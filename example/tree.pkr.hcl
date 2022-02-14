@@ -1,10 +1,4 @@
 packer {
-  required_plugins {
-    git = {
-      version = ">=v0.2.0"
-      source  = "github.com/ethanmdavidson/git"
-    }
-  }
 }
 
 data git-tree example {}
@@ -15,12 +9,12 @@ locals {
   fileChecksum = md5(local.fileString)
 }
 
-source "null" "git-plugin-test" {
+source "null" "git-plugin-test-tree" {
   communicator = "none"
 }
 
 build {
-  sources = ["source.null.git-plugin-test"]
+  sources = ["source.null.git-plugin-test-tree"]
 
   provisioner "shell-local" {
     inline = [
