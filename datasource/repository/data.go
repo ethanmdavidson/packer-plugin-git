@@ -74,7 +74,7 @@ func (d *Datasource) Execute() (cty.Value, error) {
 		return emptyOutput, err
 	}
 
-	output.Head = head.Name().String()
+	output.Head = head.Name().Short()
 	output.IsClean = status.IsClean()
 	_ = branchIter.ForEach(func(reference *plumbing.Reference) error {
 		output.Branches = append(output.Branches, reference.Name().Short())
