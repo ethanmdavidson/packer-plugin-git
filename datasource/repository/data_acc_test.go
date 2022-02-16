@@ -15,7 +15,7 @@ import (
 //go:embed test-fixtures/template.pkr.hcl
 var testDatasourceHCL2Basic string
 
-// Run with: PACKER_ACC=1 go test -count 1 -v ./datasource/commit/data_acc_test.go  -timeout=120m
+// Run with: PACKER_ACC=1 go test -count 1 -v ./datasource/repository/data_acc_test.go  -timeout=120m
 func TestAccGitCommitDatasource(t *testing.T) {
 	testCase := &acctest.PluginTestCase{
 		Name: "git_repository_basic_test",
