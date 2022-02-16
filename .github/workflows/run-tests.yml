@@ -31,8 +31,6 @@ jobs:
         with:
           name: test-debug-artifacts
           path: |
-            datasource/commit/git_commit_basic_test.pkr.hcl
-            datasource/commit/packer_log_git_commit_basic_test.txt
-            datasource/tree/git_tree_basic_test.pkr.hcl
-            datasource/tree/packer_log_git_tree_basic_test.txt
+            datasource/*/git_*_basic_test.pkr.hcl
+            datasource/*/packer_log_git_*_basic_test.txt
           if-no-files-found: ignore
