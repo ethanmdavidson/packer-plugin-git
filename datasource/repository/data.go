@@ -76,10 +76,12 @@ func (d *Datasource) Execute() (cty.Value, error) {
 
 	output.Head = head.Name().Short()
 	output.IsClean = status.IsClean()
+	output.Branches = make([]string, 0)
 	_ = branchIter.ForEach(func(reference *plumbing.Reference) error {
 		output.Branches = append(output.Branches, reference.Name().Short())
 		return nil
 	})
+	output.Tags = make([]string, 0)
 	_ = tagIter.ForEach(func(reference *plumbing.Reference) error {
 		output.Tags = append(output.Tags, reference.Name().Short())
 		return nil

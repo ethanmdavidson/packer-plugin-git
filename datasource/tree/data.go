@@ -72,7 +72,8 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	}
 
 	output.Hash = hash.String()
-	tree.Files().ForEach(func(file *object.File) error {
+	output.Files = make([]string, 0)
+	_ = tree.Files().ForEach(func(file *object.File) error {
 		if file != nil {
 			output.Files = append(output.Files, file.Name)
 		}

@@ -88,6 +88,7 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	output.PGPSignature = commit.PGPSignature
 	output.Message = commit.Message
 	output.TreeHash = commit.TreeHash.String()
+	output.ParentHashes = make([]string, 0)
 	for _, parent := range commit.ParentHashes {
 		output.ParentHashes = append(output.ParentHashes, parent.String())
 	}
