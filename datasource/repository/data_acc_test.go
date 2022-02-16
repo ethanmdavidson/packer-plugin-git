@@ -16,7 +16,7 @@ import (
 var testDatasourceHCL2Basic string
 
 // Run with: PACKER_ACC=1 go test -count 1 -v ./datasource/repository/data_acc_test.go  -timeout=120m
-func TestAccGitCommitDatasource(t *testing.T) {
+func TestAccGitRepositoryDatasource(t *testing.T) {
 	testCase := &acctest.PluginTestCase{
 		Name: "git_repository_basic_test",
 		Setup: func() error {
@@ -48,7 +48,7 @@ func TestAccGitCommitDatasource(t *testing.T) {
 
 			headLog := "null.basic-example: head: .*"
 			isCleanLog := "null.basic-example: is_clean: [true|false]"
-			branchesLog := "null.basic-example: branches: .*"
+			branchesLog := "null.basic-example: num_branches: [0-9]*"
 			tagsLog := "null.basic-example: tags: .*"
 
 			checkMatch(t, logsString, "head", headLog)
