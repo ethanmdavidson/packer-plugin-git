@@ -46,9 +46,15 @@ func TestAccGitCommitDatasource(t *testing.T) {
 			}
 			logsString := string(logsBytes)
 
-			valLog := "null.basic-example: value: .*"
+			headLog := "null.basic-example: head: .*"
+			isCleanLog := "null.basic-example: is_clean: [true|false]"
+			branchesLog := "null.basic-example: branches: .*"
+			tagsLog := "null.basic-example: tags: .*"
 
-			checkMatch(t, logsString, "value", valLog)
+			checkMatch(t, logsString, "head", headLog)
+			checkMatch(t, logsString, "clean", isCleanLog)
+			checkMatch(t, logsString, "branches", branchesLog)
+			checkMatch(t, logsString, "tags", tagsLog)
 
 			return nil
 		},

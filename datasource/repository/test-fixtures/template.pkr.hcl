@@ -1,11 +1,12 @@
 data "git-repository" "test" {}
 
-locals {
-  refval = data.git-repository.test.value
-}
-
 source "null" "basic-example" {
   communicator = "none"
+}
+
+locals {
+  branches = join(",", data.git-repository.test.branches)
+  tags = join(",", data.git-repository.test.tags)
 }
 
 build {
@@ -15,7 +16,10 @@ build {
 
   provisioner "shell-local" {
     inline = [
-      "echo 'value: ${local.refval}'",
+      "echo 'head: ${data.git-repository.test.head}'",
+      "echo 'is_clean: ${data.git-repository.test.is_clean}'",
+      "echo 'branches: ${local.branches}'",
+      "echo 'tags: ${local.tags}'",
     ]
   }
 }

@@ -28,7 +28,7 @@ var (
 func main() {
 	pps := plugin.NewSet()
 	pps.RegisterDatasource("commit", new(commit.Datasource))
-	pps.RegisterDatasource("reference", new(repository.Datasource))
+	pps.RegisterDatasource("repository", new(repository.Datasource))
 	pps.RegisterDatasource("tree", new(tree.Datasource))
 	pps.SetVersion(PluginVersion)
 	err := pps.Run()
