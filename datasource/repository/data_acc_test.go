@@ -49,7 +49,7 @@ func TestAccGitRepositoryDatasource(t *testing.T) {
 			headLog := "null.basic-example: head: .*"
 			isCleanLog := "null.basic-example: is_clean: [true|false]"
 			branchesLog := "null.basic-example: num_branches: [0-9]*"
-			tagsLog := "null.basic-example: tags: .*"
+			tagsLog := "null.basic-example: num_tags: [0-9]*"
 
 			checkMatch(t, logsString, "head", headLog)
 			checkMatch(t, logsString, "clean", isCleanLog)

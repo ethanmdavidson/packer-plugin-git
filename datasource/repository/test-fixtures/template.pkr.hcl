@@ -4,10 +4,6 @@ source "null" "basic-example" {
   communicator = "none"
 }
 
-locals {
-  tags = join(",", data.git-repository.test.tags)
-}
-
 build {
   sources = [
     "source.null.basic-example"
@@ -18,7 +14,7 @@ build {
       "echo 'head: ${data.git-repository.test.head}'",
       "echo 'is_clean: ${data.git-repository.test.is_clean}'",
       "echo 'num_branches: ${length(data.git-repository.test.branches)}'",
-      "echo 'tags: ${local.tags}'",
+      "echo 'num_tags: ${length(data.git-repository.test.tags)}'",
     ]
   }
 }
