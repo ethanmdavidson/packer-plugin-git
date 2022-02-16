@@ -1,6 +1,6 @@
 ---
 description: >
-  The git data source is used to include data from your 
+  The git data source is used to include data from your
   git repository into your packer template.
 page_title: Git - Data Sources
 sidebar_title: Overview
@@ -8,18 +8,20 @@ sidebar_title: Overview
 
 # Git Data Sources
 
-The Git plugin is able to fetch data from Git repositories. 
+The Git plugin is able to fetch data from Git repositories.
 The following data sources are currently supported:
 
 - [commit](/docs/datasources/git/commit) - Retrieve information
     about a commit, e.g. the commit hash.
-- [tree](/docs/datasources/git/tree) - Retrieve the list of 
+- [repository](/docs/datasources/git/repository) - Retrieve information
+    about a repository, e.g. the value of HEAD.
+- [tree](/docs/datasources/git/tree) - Retrieve the list of
     files present in a specific commit, similar to `git ls-tree -r`.
 
 ## How to use this plugin
 
-From Packer v1.7.0, copy and paste this code into your Packer 
-configuration to install this plugin. Then, run 
+From Packer v1.7.0, copy and paste this code into your Packer
+configuration to install this plugin. Then, run
 [`packer init`](/docs/commands/init).
 
 ```hcl
@@ -35,16 +37,16 @@ packer {
 
 ### Manual Installation
 
-You can find pre-built binary releases of the plugin 
+You can find pre-built binary releases of the plugin
 [here](https://github.com/ethanmdavidson/packer-plugin-git/releases).
 
-Alternatively, if you prefer to build the plugin from its source 
+Alternatively, if you prefer to build the plugin from its source
 code, clone [the GitHub repository](https://github.com/ethanmdavidson/packer-plugin-git)
 locally and run the command `make build` from the root
 directory. Upon successful compilation, a `packer-plugin-git` plugin
 binary file can be found in the root directory.
 
-Once the binary is downloaded or built, please follow the Packer 
+Once the binary is downloaded or built, please follow the Packer
 documentation on
 [installing a plugin](https://www.packer.io/docs/extending/plugins/#installing-plugins).
 
