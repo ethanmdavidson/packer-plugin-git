@@ -1,12 +1,9 @@
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput
-package tree
+package repository
 
 import (
-	"errors"
-
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/hashicorp/packer-plugin-sdk/hcl2helper"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
@@ -14,8 +11,7 @@ import (
 )
 
 type Config struct {
-	Path      string `mapstructure:"path"`
-	CommitIsh string `mapstructure:"commit_ish"` //should this be tree-ish instead?
+	Path string `mapstructure:"path"`
 }
 
 type Datasource struct {
@@ -23,8 +19,10 @@ type Datasource struct {
 }
 
 type DatasourceOutput struct {
-	Hash  string   `mapstructure:"hash"`
-	Files []string `mapstructure:"files"`
+	Head     string   `mapstructure:"head"`
+	Branches []string `mapstructure:"branches"`
+	Tags     []string `mapstructure:"tags"`
+	IsClean  bool     `mapstructure:"is_clean"`
 }
 
 func (d *Datasource) ConfigSpec() hcldec.ObjectSpec {
@@ -38,9 +36,6 @@ func (d *Datasource) Configure(raws ...interface{}) error {
 	}
 	if d.config.Path == "" {
 		d.config.Path = "."
-	}
-	if d.config.CommitIsh == "" {
-		d.config.CommitIsh = "HEAD"
 	}
 	return nil
 }
@@ -58,25 +53,37 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	if err != nil {
 		return emptyOutput, err
 	}
-	hash, err := repo.ResolveRevision(plumbing.Revision(d.config.CommitIsh))
+	head, err := repo.Head()
 	if err != nil {
 		return emptyOutput, err
 	}
-	commit, err := repo.CommitObject(*hash)
+	worktree, err := repo.Worktree()
 	if err != nil {
-		return emptyOutput, errors.New("couldn't find commit")
+		return emptyOutput, err
 	}
-	tree, err := commit.Tree()
+	status, err := worktree.Status()
 	if err != nil {
-		return emptyOutput, errors.New("couldn't find tree")
+		return emptyOutput, err
+	}
+	branchIter, err := repo.Branches()
+	if err != nil {
+		return emptyOutput, err
+	}
+	tagIter, err := repo.Tags()
+	if err != nil {
+		return emptyOutput, err
 	}
 
-	output.Hash = hash.String()
-	output.Files = make([]string, 0)
-	_ = tree.Files().ForEach(func(file *object.File) error {
-		if file != nil {
-			output.Files = append(output.Files, file.Name)
-		}
+	output.Head = head.Name().Short()
+	output.IsClean = status.IsClean()
+	output.Branches = make([]string, 0)
+	_ = branchIter.ForEach(func(reference *plumbing.Reference) error {
+		output.Branches = append(output.Branches, reference.Name().Short())
+		return nil
+	})
+	output.Tags = make([]string, 0)
+	_ = tagIter.ForEach(func(reference *plumbing.Reference) error {
+		output.Tags = append(output.Tags, reference.Name().Short())
 		return nil
 	})
 

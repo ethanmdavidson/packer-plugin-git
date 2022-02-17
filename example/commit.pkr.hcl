@@ -4,6 +4,8 @@ data "git-commit" "test" {}
 
 locals {
   hash = data.git-commit.test.hash
+  # if message contains a single quote, it will mess up the echo command
+  message = replace(data.git-commit.test.message, "'", "")
   branchesString = join(",", sort(data.git-commit.test.branches))
 }
 
@@ -22,7 +24,7 @@ build {
       "echo 'author: ${data.git-commit.test.author}'",
       "echo 'committer: ${data.git-commit.test.committer}'",
       "echo 'pgp_signature: ${data.git-commit.test.pgp_signature}'",
-      "echo 'message: ${data.git-commit.test.message}'",
+      "echo 'message: ${local.message}'",
       "echo 'tree_hash: ${data.git-commit.test.tree_hash}'",
       "echo 'first_parent: ${data.git-commit.test.parent_hashes[0]}'",
     ]

@@ -28,5 +28,7 @@ run-example: dev
 test:
 	@go test -count $(COUNT) $(TEST) -timeout=3m
 
+# the acceptance tests have a weird habit of messing up the tty (e.g. turning off echo mode, so
+# terminal stops showing what you type). If this happens to you, run `reset` or `stty sane` to fix.
 testacc: dev
 	@PACKER_ACC=1 go test -count $(COUNT) -v $(TEST) -timeout=120m
