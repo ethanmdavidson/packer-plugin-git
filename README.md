@@ -14,7 +14,7 @@ Add the plugin to your packer config:
 packer {
   required_plugins {
     git = {
-      version = ">=v0.2.2"
+      version = ">=v0.3.0"
       source  = "github.com/ethanmdavidson/git"
     }
   }
@@ -39,7 +39,7 @@ See docs for more detailed information.
 
 ## Development
 
-The GNUmakefile has all the commands you need to work with this repo. 
+The GNUmakefile has all the commands you need to work with this repo.
 The typical development flow looks something like this:
 
 1) Make code changes, and add test cases for these changes.

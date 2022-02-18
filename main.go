@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/ethanmdavidson/packer-plugin-git/datasource/commit"
+	"github.com/ethanmdavidson/packer-plugin-git/datasource/repository"
+	"github.com/ethanmdavidson/packer-plugin-git/datasource/tree"
 	"os"
-	commit "packer-plugin-git/datasource/commit"
-	repository "packer-plugin-git/datasource/repository"
-	tree "packer-plugin-git/datasource/tree"
 
 	"github.com/hashicorp/packer-plugin-sdk/plugin"
 	"github.com/hashicorp/packer-plugin-sdk/version"
@@ -13,7 +13,7 @@ import (
 
 var (
 	// Version is the main version number that is being run at the moment.
-	Version = "0.2.2"
+	Version = "0.3.0"
 
 	// VersionPrerelease is A pre-release marker for the Version. If this is ""
 	// (empty string) then it means that it is a final release. Otherwise, this
