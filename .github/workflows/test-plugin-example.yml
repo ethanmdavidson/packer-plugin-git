@@ -20,6 +20,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Build and Install Plugin
+        run: make dev
+
       - name: Init
         uses: hashicorp/packer-github-actions@master
         with:
