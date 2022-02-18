@@ -1,4 +1,4 @@
-module packer-plugin-git
+module github.com/ethanmdavidson/packer-plugin-git
 
 go 1.16
 

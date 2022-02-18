@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/ethanmdavidson/packer-plugin-git/datasource/commit"
+	"github.com/ethanmdavidson/packer-plugin-git/datasource/repository"
+	"github.com/ethanmdavidson/packer-plugin-git/datasource/tree"
 	"os"
-	commit "packer-plugin-git/datasource/commit"
-	repository "packer-plugin-git/datasource/repository"
-	tree "packer-plugin-git/datasource/tree"
 
 	"github.com/hashicorp/packer-plugin-sdk/plugin"
 	"github.com/hashicorp/packer-plugin-sdk/version"
