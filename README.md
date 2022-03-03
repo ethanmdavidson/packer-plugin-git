@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/ethanmdavidson/packer-plugin-git/actions/workflows/run-tests.yml/badge.svg)](https://github.com/ethanmdavidson/packer-plugin-git/actions/workflows/run-tests.yml)
 
-A plugin for packer which provides access to git. Compatible with Packer >= 1.7.0
+A plugin for [Packer](https://www.packer.io/) which provides access to git. Compatible with Packer >= 1.7.0
 
 Under the hood, it uses [go-git](https://github.com/go-git/go-git).
 
@@ -51,6 +51,6 @@ The typical development flow looks something like this:
 6) Once the above steps are complete: commit, push, and open a PR!
 
 For local development, you will need to install:
-- Packer >= 1.7
-- Go >= 1.16
+- [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli) >= 1.7
+- [Go](https://golang.org/doc/install) >= 1.17
 - Make
