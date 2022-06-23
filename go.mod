@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/hashicorp/hcl/v2 v2.12.0
+	github.com/hashicorp/hcl/v2 v2.13.0
 	github.com/hashicorp/packer-plugin-sdk v0.3.0
 	github.com/zclconf/go-cty v1.10.0
 )
@@ -73,7 +73,7 @@ require (
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
-	golang.org/x/crypto v0.0.0-20220427172511-eb4f295cb31f // indirect
+	golang.org/x/crypto v0.0.0-20220517005047-85d78b3ac167 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sys v0.0.0-20220209214540-3681064d5158 // indirect
 	golang.org/x/text v0.3.7 // indirect
