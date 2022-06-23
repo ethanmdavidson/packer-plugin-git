@@ -14,7 +14,7 @@ Add the plugin to your packer config:
 packer {
   required_plugins {
     git = {
-      version = ">=v0.3.0"
+      version = ">=v0.3.2"
       source  = "github.com/ethanmdavidson/git"
     }
   }
@@ -54,3 +54,4 @@ For local development, you will need to install:
 - [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli) >= 1.7
 - [Go](https://golang.org/doc/install) >= 1.17
 - Make
+`
