@@ -18,19 +18,19 @@ jobs:
     name: init and build example
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
 
       - name: Build and Install Plugin
         run: make dev
 
       - name: Init
-        uses: hashicorp/packer-github-actions@master
+        uses: hashicorp/packer-github-actions@ae6b3ed3bec089bbfb576ab7d714df7cbc4b88a4
         with:
           working_directory: './example'
           command: init
 
       - name: Validate
-        uses: hashicorp/packer-github-actions@master
+        uses: hashicorp/packer-github-actions@ae6b3ed3bec089bbfb576ab7d714df7cbc4b88a4
         with:
           working_directory: './example'
           command: validate
@@ -38,7 +38,7 @@ jobs:
           PACKER_LOG: ${{ github.event.inputs.logs }}
 
       - name: Build
-        uses: hashicorp/packer-github-actions@master
+        uses: hashicorp/packer-github-actions@ae6b3ed3bec089bbfb576ab7d714df7cbc4b88a4
         with:
           working_directory: './example'
           command: build
