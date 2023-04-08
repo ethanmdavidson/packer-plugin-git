@@ -3,7 +3,7 @@ package commit
 import (
 	_ "embed"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"os/exec"
 	"regexp"
@@ -38,9 +38,11 @@ func TestAccGitCommitDatasource(t *testing.T) {
 			if err != nil {
 				return fmt.Errorf("Unable find %s", logfile)
 			}
-			defer logs.Close()
+			defer func(logs *os.File) {
+				_ = logs.Close()
+			}(logs)
 
-			logsBytes, err := ioutil.ReadAll(logs)
+			logsBytes, err := io.ReadAll(logs)
 			if err != nil {
 				return fmt.Errorf("Unable to read %s", logfile)
 			}

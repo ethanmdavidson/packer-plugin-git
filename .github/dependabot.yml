@@ -12,5 +12,5 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      intervale: "weekly"
+      interval: "weekly"
 
