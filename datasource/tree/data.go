@@ -1,3 +1,5 @@
+// Package tree contains logic for providing working tree data to Packer
+//
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput
 package tree
 

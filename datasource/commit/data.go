@@ -1,3 +1,5 @@
+// Package commit contains logic for providing commit data to Packer
+//
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput
 package commit
 

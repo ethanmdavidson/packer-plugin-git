@@ -1,3 +1,5 @@
+// Package repository contains logic for providing repo data to Packer
+//
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config,DatasourceOutput
 package repository
 
@@ -93,7 +95,7 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	log.Printf("output.Head: '%s'\n", output.Head)
 
 	output.IsClean = status.IsClean()
-	log.Printf("output.IsClean: '%s'\n", output.IsClean)
+	log.Printf("output.IsClean: '%t'\n", output.IsClean)
 
 	output.Branches = make([]string, 0)
 	_ = branchIter.ForEach(func(reference *plumbing.Reference) error {

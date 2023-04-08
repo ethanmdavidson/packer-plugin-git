@@ -1,3 +1,4 @@
+// Package common contains some logic that is shared by all datasources
 package common
 
 import (
