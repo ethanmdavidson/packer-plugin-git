@@ -25,7 +25,7 @@ test:
 testacc: dev
 	@PACKER_ACC=1 go test -count $(COUNT) -v $(TEST) -timeout=120m
 
-install-packer-sdc: ## Install packer sofware development command
+install-packer-sdc: ## Install packer software development command
 	@go install github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc@${HASHICORP_PACKER_PLUGIN_SDK_VERSION}
 
 ci-release-docs: install-packer-sdc
