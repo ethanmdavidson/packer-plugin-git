@@ -14,7 +14,7 @@ Add the plugin to your packer config:
 packer {
   required_plugins {
     git = {
-      version = ">= 0.3.4"
+      version = ">= 0.3.5"
       source  = "github.com/ethanmdavidson/git"
     }
   }
