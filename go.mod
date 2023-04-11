@@ -2,6 +2,11 @@ module github.com/ethanmdavidson/packer-plugin-git
 
 go 1.19
 
+// hcl and go-cty cannot be upgraded until an issue with packer is resolved
+// for more info see https://github.com/ethanmdavidson/packer-plugin-git/pull/49#issuecomment-1502290753
+// github.com/hashicorp/hcl/v2 v2.13.0
+// github.com/zclconf/go-cty v1.10.0
+
 require (
 	github.com/go-git/go-git/v5 v5.6.1
 	github.com/hashicorp/hcl/v2 v2.13.0
