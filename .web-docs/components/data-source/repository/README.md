@@ -1,13 +1,3 @@
----
-description: >
-  The git repository data source is used to include information about
-  a git repository in your packer template.
-page_title: Repository - Data Sources
-nav_title: Repository
----
-
-# Repository
-
 Type: `git-repository`
 
 The repository data source is used to fetch information about a git repository.
@@ -56,4 +46,3 @@ source "amazon-ebs" "ami1" {
   ami_name        = "ami1-${local.version}"
 }
 ```
-

@@ -1,13 +1,3 @@
----
-description: >
-  The git commit data source is used to include information about
-  a git commit in your packer template.
-page_title: Commit - Data Sources
-nav_title: Commit
----
-
-# Commit
-
 Type: `git-commit`
 
 The commit data source is used to fetch information about a specific commit. 
@@ -65,4 +55,3 @@ build {
   sources = ["source.googlecompute.example"]
 }
 ```
-

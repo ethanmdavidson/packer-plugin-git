@@ -45,6 +45,12 @@ generate: phony install-packer-sdc
 	packer-sdc renderdocs -src ./docs -dst ./.docs -partials ./docs-partials
 	# see the .docs folder for a preview of the docs
 
+build-docs: phony install-packer-sdc
+	@if [ -d ".docs" ]; then rm -r ".docs"; fi
+	@packer-sdc renderdocs -src "docs" -partials docs-partials/ -dst ".docs/"
+	@./.web-docs/scripts/compile-to-webdocs.sh "." ".docs" ".web-docs" "BrandonRomano"
+	@rm -r ".docs"
+
 # instead of listing every target in .PHONY, we create one
 # 'phony' target which all the other targets depend on.
 # This saves me from having to remember to add each new target
