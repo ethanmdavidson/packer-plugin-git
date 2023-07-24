@@ -8,7 +8,7 @@ go 1.19
 // github.com/zclconf/go-cty v1.10.0
 
 require (
-	github.com/go-git/go-git/v5 v5.7.0
+	github.com/go-git/go-git/v5 v5.8.0
 	github.com/hashicorp/hcl/v2 v2.13.0
 	github.com/hashicorp/packer-plugin-sdk v0.4.0
 	github.com/zclconf/go-cty v1.10.0
