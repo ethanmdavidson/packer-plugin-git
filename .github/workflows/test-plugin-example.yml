@@ -24,13 +24,13 @@ jobs:
         run: make dev
 
       - name: Init
-        uses: hashicorp/packer-github-actions@ae6b3ed3bec089bbfb576ab7d714df7cbc4b88a4
+        uses: hashicorp/packer-github-actions@ecc5516821087666a672c0d280a0084ea6d9aafd
         with:
           working_directory: './example'
           command: init
 
       - name: Validate
-        uses: hashicorp/packer-github-actions@ae6b3ed3bec089bbfb576ab7d714df7cbc4b88a4
+        uses: hashicorp/packer-github-actions@ecc5516821087666a672c0d280a0084ea6d9aafd
         with:
           working_directory: './example'
           command: validate
@@ -38,7 +38,7 @@ jobs:
           PACKER_LOG: ${{ github.event.inputs.logs }}
 
       - name: Build
-        uses: hashicorp/packer-github-actions@ae6b3ed3bec089bbfb576ab7d714df7cbc4b88a4
+        uses: hashicorp/packer-github-actions@ecc5516821087666a672c0d280a0084ea6d9aafd
         with:
           working_directory: './example'
           command: build
