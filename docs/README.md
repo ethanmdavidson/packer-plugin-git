@@ -1,14 +1,36 @@
-# Git Components
-
 The Git plugin is able to interact with Git repos through Packer.
 Currently, it comes with the following components:
 
+### Installation
+
+To install this plugin, copy and paste this code into your Packer configuration, then run [`packer init`](https://www.packer.io/docs/commands/init).
+
+```hcl
+packer {
+  required_plugins {
+    git = {
+      version = ">= 0.4.3"
+      source  = "github.com/ethanmdavidson/git"
+    }
+  }
+}
+```
+
+Alternatively, you can use `packer plugins install` to manage installation of this plugin.
+
+```sh
+$ packer plugins install github.com/ethanmdavidson/git
+```
+
+
+### Components
+
 ### Data Sources
 
-- [commit](/docs/datasources/commit.mdx) - Retrieve information
+- [git-commit](/packer/integrations/ethanmdavidson/latest/components/data-source/commit) retrieve information
     about a specific commit, e.g. the commit hash.
-- [repository](/docs/datasources/repository.mdx) - Retrieve information
+- [git-repository](/packer/integrations/ethanmdavidson/latest/components/data-source/repository) - Retrieve information
     about a repository, e.g. the value of HEAD.
-- [tree](/docs/datasources/tree.mdx) - Retrieve the list of
+- [git-tree](/packer/integrations/ethanmdavidson/latest/components/data-source/tree) - Retrieve the list of
     files present in a specific commit, similar to `git ls-tree -r`.
 
