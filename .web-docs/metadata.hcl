@@ -3,7 +3,7 @@
 integration {
   name = "Git"
   description = "TODO"
-  identifier = "packer/BrandonRomano/git"
+  identifier = "packer/ethanmdavidson/git"
   component {
     type = "data-source"
     name = "Commit"
