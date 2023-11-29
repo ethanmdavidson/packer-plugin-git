@@ -27,10 +27,10 @@ $ packer plugins install github.com/ethanmdavidson/git
 
 ### Data Sources
 
-- [git-commit](/packer/integrations/ethanmdavidson/latest/components/data-source/commit) retrieve information
+- [git-commit](/packer/integrations/ethanmdavidson/git/latest/components/data-source/commit) retrieve information
     about a specific commit, e.g. the commit hash.
-- [git-repository](/packer/integrations/ethanmdavidson/latest/components/data-source/repository) - Retrieve information
+- [git-repository](/packer/integrations/ethanmdavidson/git/latest/components/data-source/repository) - Retrieve information
     about a repository, e.g. the value of HEAD.
-- [git-tree](/packer/integrations/ethanmdavidson/latest/components/data-source/tree) - Retrieve the list of
+- [git-tree](/packer/integrations/ethanmdavidson/git/latest/components/data-source/tree) - Retrieve the list of
     files present in a specific commit, similar to `git ls-tree -r`.
 
