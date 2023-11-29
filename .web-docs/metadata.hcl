@@ -2,7 +2,7 @@
 # https://github.com/hashicorp/integration-template#metadata-configuration
 integration {
   name = "Git"
-  description = "TODO"
+  description = "A plugin for Packer which provides access to git."
   identifier = "packer/ethanmdavidson/git"
   component {
     type = "data-source"
