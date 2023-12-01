@@ -1,5 +1,4 @@
 The Git plugin is able to interact with Git repos through Packer.
-Currently, it comes with the following components:
 
 ### Installation
 
@@ -27,7 +26,7 @@ $ packer plugins install github.com/ethanmdavidson/git
 
 ### Data Sources
 
-- [git-commit](/packer/integrations/ethanmdavidson/git/latest/components/data-source/commit) retrieve information
+- [git-commit](/packer/integrations/ethanmdavidson/git/latest/components/data-source/commit) - Retrieve information
     about a specific commit, e.g. the commit hash.
 - [git-repository](/packer/integrations/ethanmdavidson/git/latest/components/data-source/repository) - Retrieve information
     about a repository, e.g. the value of HEAD.
