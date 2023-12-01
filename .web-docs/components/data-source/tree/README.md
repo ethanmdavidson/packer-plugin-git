@@ -1,13 +1,3 @@
----
-description: >
-  The git tree data source is used to include information about
-  a commit tree into your packer template.
-page_title: Tree - Data Sources
-nav_title: Tree
----
-
-# Tree
-
 Type: `git-tree`
 
 The tree data source is used to fetch the 'tree' or list of files
@@ -49,4 +39,3 @@ locals {
   checksum = md5(join(",", sort(data.git-tree.cwd-head.files)))
 }
 ```
-

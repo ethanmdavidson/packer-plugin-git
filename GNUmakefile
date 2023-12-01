@@ -33,16 +33,15 @@ testacc: phony dev
 install-packer-sdc: phony ## Install packer software development command
 	@go install github.com/hashicorp/packer-plugin-sdk/cmd/packer-sdc@${HASHICORP_PACKER_PLUGIN_SDK_VERSION}
 
-ci-release-docs: phony install-packer-sdc
-	@packer-sdc renderdocs -src docs -partials docs-partials/ -dst docs/
-	@/bin/sh -c "[ -d docs ] && zip -r docs.zip docs/"
-
 plugin-check: phony install-packer-sdc build
 	@packer-sdc plugin-check ${BINARY}
 
 generate: phony install-packer-sdc
 	@go generate -v ./...
-	packer-sdc renderdocs -src ./docs -dst ./.docs -partials ./docs-partials
+	@if [ -d ".docs" ]; then rm -r ".docs"; fi
+	@packer-sdc renderdocs -src "docs" -partials docs-partials/ -dst ".docs/"
+	@./.web-docs/scripts/compile-to-webdocs.sh "." ".docs" ".web-docs" "ethanmdavidson"
+	@rm -r ".docs"
 	# see the .docs folder for a preview of the docs
 
 # instead of listing every target in .PHONY, we create one
