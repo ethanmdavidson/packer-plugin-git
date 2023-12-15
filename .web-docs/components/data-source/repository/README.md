@@ -37,8 +37,8 @@ variable version {
 }
 
 locals {
-  onMaster = data.git-repository.cwd.head == "main"
-  version  = onMaster ? "${var.version}" : "${var.version}-SNAPSHOT"
+  onMain = data.git-repository.cwd.head == "main"
+  version  = onMain ? "${var.version}" : "${var.version}-SNAPSHOT"
 }
 
 source "amazon-ebs" "ami1" {
