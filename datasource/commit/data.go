@@ -4,6 +4,8 @@
 package commit
 
 import (
+	"log"
+
 	"github.com/ethanmdavidson/packer-plugin-git/common"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
@@ -11,7 +13,6 @@ import (
 	"github.com/hashicorp/packer-plugin-sdk/hcl2helper"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
 	"github.com/zclconf/go-cty/cty"
-	"log"
 )
 
 type Config struct {
@@ -62,7 +63,10 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	emptyOutput := hcl2helper.HCL2ValueFromConfig(output, d.OutputSpec())
 
 	common.PrintOpeningRepo(d.config.Path)
-	openOptions := &git.PlainOpenOptions{DetectDotGit: true}
+	openOptions := &git.PlainOpenOptions{
+		DetectDotGit:          true,
+		EnableDotGitCommonDir: true,
+	}
 	repo, err := git.PlainOpenWithOptions(d.config.Path, openOptions)
 	if err != nil {
 		return emptyOutput, err
