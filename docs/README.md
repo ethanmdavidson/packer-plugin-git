@@ -8,7 +8,7 @@ To install this plugin, copy and paste this code into your Packer configuration,
 packer {
   required_plugins {
     git = {
-      version = ">= 0.4.3"
+      version = ">= 0.5.0"
       source  = "github.com/ethanmdavidson/git"
     }
   }
