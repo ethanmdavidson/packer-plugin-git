@@ -25,6 +25,12 @@ test: phony
 	staticcheck -checks="all" -tests ./...
 	go test -race -count $(COUNT) $(TEST) -timeout=3m
 
+test-releaser: export API_VERSION = x5.0
+test-releaser: phony
+	go install github.com/goreleaser/goreleaser@latest
+	goreleaser check
+	goreleaser release --snapshot --clean --skip=sign
+
 # the acceptance tests have a weird habit of messing up the tty (e.g. turning off echo mode, so
 # terminal stops showing what you type). If this happens to you, run `reset` or `stty sane` to fix.
 testacc: phony dev
