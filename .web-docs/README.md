@@ -8,7 +8,7 @@ To install this plugin, copy and paste this code into your Packer configuration,
 packer {
   required_plugins {
     git = {
-      version = ">= 0.4.3"
+      version = ">= 0.5.0"
       source  = "github.com/ethanmdavidson/git"
     }
   }
@@ -21,6 +21,20 @@ Alternatively, you can use `packer plugins install` to manage installation of th
 $ packer plugins install github.com/ethanmdavidson/git
 ```
 
+### Manual Installation
+
+You can find pre-built binary releases of the plugin 
+[here](https://github.com/ethanmdavidson/packer-plugin-git/releases).
+
+Or, if you prefer to build the plugin from its source
+code, clone [the GitHub repository](https://github.com/ethanmdavidson/packer-plugin-git)
+locally and run the command `make build` from the root
+directory. Upon successful compilation, a `packer-plugin-git` plugin
+binary file can be found in the root directory.
+
+Once the binary is downloaded or built, please follow the Packer
+documentation on
+[installing a plugin](https://www.packer.io/docs/extending/plugins/#installing-plugins).
 
 ### Components
 
