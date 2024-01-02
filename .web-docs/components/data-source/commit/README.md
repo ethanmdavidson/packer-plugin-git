@@ -27,7 +27,7 @@ for the list of supported values. Defaults to 'HEAD'.
 - `branches` (string) - The short names of branches at the selected commit.
 - `author` (string) - The author of the commit, in standard `A U Thor <author@example.com>` format.
 - `committer` (string) - The committer of the commit, in same format as author.
-- `timestamp` (string) - The timestamp of the commit, in RFC3339 format.
+- `timestamp` (string) - The timestamp of the commit, in RFC3339 format (e.g. `2024-01-02T09:38:19Z`).
 - `pgp_signature` (string) - The PGP signature attached to the commit.
 - `message` (string) - The commit message.
 - `tree_hash` (string) - The hash of the root tree of the commit.

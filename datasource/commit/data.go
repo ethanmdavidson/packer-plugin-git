@@ -114,7 +114,7 @@ func (d *Datasource) Execute() (cty.Value, error) {
 	output.Committer = commit.Committer.String()
 	log.Printf("output.Committer: '%s'\n", output.Committer)
 
-	output.Timestamp = commit.Committer.When.Format(time.RFC3339)
+	output.Timestamp = commit.Committer.When.UTC().Format(time.RFC3339)
 	log.Printf("output.Timestamp: '%s'\n", output.Timestamp)
 
 	output.PGPSignature = commit.PGPSignature
