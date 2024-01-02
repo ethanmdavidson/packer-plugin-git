@@ -23,6 +23,7 @@ build {
       "echo 'branches: ${local.branchesString}'",
       "echo 'author: ${data.git-commit.test.author}'",
       "echo 'committer: ${data.git-commit.test.committer}'",
+      "echo 'timestamp: ${data.git-commit.test.timestamp}'",
       "echo 'pgp_signature: ${data.git-commit.test.pgp_signature}'",
       "echo 'message: ${local.message}'",
       "echo 'tree_hash: ${data.git-commit.test.tree_hash}'",
