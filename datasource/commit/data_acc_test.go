@@ -52,6 +52,7 @@ func TestAccGitCommitDatasource(t *testing.T) {
 			branchLog := "null.basic-example: num_branches: [0-9]*"
 			authorLog := "null.basic-example: author: [^\\n]*<[^\\n]*>"
 			committerLog := "null.basic-example: committer: [^\\n]*<[^\\n]*>"
+			timestampLog := "null.basic-example: timestamp: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z"
 			//Can't test pgp_signature since that isn't set on most of my commits
 			messageLog := "null.basic-example: message: .*"
 			treeHashLog := "null.basic-example: tree_hash: [0-9a-f]{5,40}"
@@ -61,6 +62,7 @@ func TestAccGitCommitDatasource(t *testing.T) {
 			checkMatch(t, logsString, "num_branches", branchLog)
 			checkMatch(t, logsString, "author", authorLog)
 			checkMatch(t, logsString, "committer", committerLog)
+			checkMatch(t, logsString, "timestamp", timestampLog)
 			checkMatch(t, logsString, "message", messageLog)
 			checkMatch(t, logsString, "tree_hash", treeHashLog)
 			checkMatch(t, logsString, "first_parent", parentLog)

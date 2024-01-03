@@ -39,6 +39,7 @@ type FlatDatasourceOutput struct {
 	Branches     []string `mapstructure:"branches" cty:"branches" hcl:"branches"`
 	Author       *string  `mapstructure:"author" cty:"author" hcl:"author"`
 	Committer    *string  `mapstructure:"committer" cty:"committer" hcl:"committer"`
+	Timestamp    *string  `mapstructure:"timestamp" cty:"timestamp" hcl:"timestamp"`
 	PGPSignature *string  `mapstructure:"pgp_signature" cty:"pgp_signature" hcl:"pgp_signature"`
 	Message      *string  `mapstructure:"message" cty:"message" hcl:"message"`
 	TreeHash     *string  `mapstructure:"tree_hash" cty:"tree_hash" hcl:"tree_hash"`
@@ -61,6 +62,7 @@ func (*FlatDatasourceOutput) HCL2Spec() map[string]hcldec.Spec {
 		"branches":      &hcldec.AttrSpec{Name: "branches", Type: cty.List(cty.String), Required: false},
 		"author":        &hcldec.AttrSpec{Name: "author", Type: cty.String, Required: false},
 		"committer":     &hcldec.AttrSpec{Name: "committer", Type: cty.String, Required: false},
+		"timestamp":     &hcldec.AttrSpec{Name: "timestamp", Type: cty.String, Required: false},
 		"pgp_signature": &hcldec.AttrSpec{Name: "pgp_signature", Type: cty.String, Required: false},
 		"message":       &hcldec.AttrSpec{Name: "message", Type: cty.String, Required: false},
 		"tree_hash":     &hcldec.AttrSpec{Name: "tree_hash", Type: cty.String, Required: false},

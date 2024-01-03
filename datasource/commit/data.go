@@ -5,6 +5,7 @@ package commit
 
 import (
 	"log"
+	"time"
 
 	"github.com/ethanmdavidson/packer-plugin-git/common"
 	"github.com/go-git/go-git/v5"
@@ -29,6 +30,7 @@ type DatasourceOutput struct {
 	Branches     []string `mapstructure:"branches"`
 	Author       string   `mapstructure:"author"`
 	Committer    string   `mapstructure:"committer"`
+	Timestamp    string   `mapstructure:"timestamp"`
 	PGPSignature string   `mapstructure:"pgp_signature"`
 	Message      string   `mapstructure:"message"`
 	TreeHash     string   `mapstructure:"tree_hash"`
@@ -111,6 +113,9 @@ func (d *Datasource) Execute() (cty.Value, error) {
 
 	output.Committer = commit.Committer.String()
 	log.Printf("output.Committer: '%s'\n", output.Committer)
+
+	output.Timestamp = commit.Committer.When.UTC().Format(time.RFC3339)
+	log.Printf("output.Timestamp: '%s'\n", output.Timestamp)
 
 	output.PGPSignature = commit.PGPSignature
 	log.Printf("len(output.PGPSignature): '%d'\n", len(output.PGPSignature))
