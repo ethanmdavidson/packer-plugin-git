@@ -59,7 +59,7 @@ The typical development flow looks something like this:
 
 For local development, you will need to install:
 - [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli) >= 1.7
-- [Go](https://golang.org/doc/install) >= 1.19
+- [Go](https://golang.org/doc/install) >= 1.21
 - [GNU Make](https://www.gnu.org/software/make/)
 
 Check out the [Packer docs on Developing Plugins](https://developer.hashicorp.com/packer/docs/plugins/creation)
