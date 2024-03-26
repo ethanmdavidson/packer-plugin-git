@@ -1,5 +1,6 @@
 NAME=git
 BINARY=packer-plugin-${NAME}
+PLUGIN_FQN="$(shell grep -E '^module' <go.mod | sed -E 's/module *//')"
 HASHICORP_PACKER_PLUGIN_SDK_VERSION?=$(shell go list -m github.com/hashicorp/packer-plugin-sdk | cut -d " " -f2)
 
 COUNT?=1
@@ -11,9 +12,9 @@ prep: phony
 build: phony
 	@go build -o ${BINARY}
 
-dev: phony build
-	@mkdir -p ~/.packer.d/plugins/
-	@mv ${BINARY} ~/.packer.d/plugins/${BINARY}
+dev: phony
+	@go build -ldflags="-X '${PLUGIN_FQN}/version.VersionPrerelease=dev'" -o '${BINARY}'
+	packer plugins install --path ${BINARY} "$(shell echo "${PLUGIN_FQN}" | sed 's/packer-plugin-//')"
 
 run-example: phony dev
 	@packer build ./example
