@@ -28,7 +28,7 @@ test: phony
 
 test-releaser: export API_VERSION = x5.0
 test-releaser: phony
-	go install github.com/goreleaser/goreleaser@latest
+	go install github.com/goreleaser/goreleaser/v2@latest
 	goreleaser check
 	goreleaser release --snapshot --clean --skip=sign
 
