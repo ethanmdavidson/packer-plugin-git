@@ -30,7 +30,7 @@ jobs:
         run: make test && make testacc
 
       - name: Upload test artifacts for debugging
-        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b
         if: failure()
         with:
           name: test-debug-artifacts
