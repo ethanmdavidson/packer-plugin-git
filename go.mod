@@ -2,8 +2,6 @@ module github.com/ethanmdavidson/packer-plugin-git
 
 go 1.23.0
 
-toolchain go1.24.0
-
 require (
 	github.com/go-git/go-git/v5 v5.14.0
 	github.com/hashicorp/hcl/v2 v2.23.0
