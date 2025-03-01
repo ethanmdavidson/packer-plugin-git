@@ -13,7 +13,7 @@ import (
 
 var (
 	// Version is the main version number that is being run at the moment.
-	Version = "0.6.3"
+	Version = "0.6.4"
 
 	// PluginVersion is used by the plugin set to allow Packer to recognize
 	// what version this plugin is.
