@@ -5,7 +5,7 @@ go 1.23.0
 require (
 	github.com/go-git/go-git/v5 v5.16.2
 	github.com/hashicorp/hcl/v2 v2.23.0
-	github.com/hashicorp/packer-plugin-sdk v0.6.1
+	github.com/hashicorp/packer-plugin-sdk v0.6.2
 	github.com/zclconf/go-cty v1.16.2
 )
 
