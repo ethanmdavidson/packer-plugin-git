@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/ethanmdavidson/packer-plugin-git/datasource/commit"
 	"github.com/ethanmdavidson/packer-plugin-git/datasource/repository"
 	"github.com/ethanmdavidson/packer-plugin-git/datasource/tree"
-	"os"
 
 	"github.com/hashicorp/packer-plugin-sdk/plugin"
 	"github.com/hashicorp/packer-plugin-sdk/version"
@@ -13,7 +14,7 @@ import (
 
 var (
 	// Version is the main version number that is being run at the moment.
-	Version = "0.6.4"
+	Version = "0.6.5"
 
 	// PluginVersion is used by the plugin set to allow Packer to recognize
 	// what version this plugin is.
