@@ -37,8 +37,10 @@ builds:
       - darwin
     goarch:
       - amd64
-      - '386'
-      - arm
+      # 32-bit builds are disabled for now because of https://github.com/ulikunitz/xz/issues/62
+      # Not going to revert xz because 0.5.14 was a vuln fix, and I don't think anyone is using these archs anyway.
+      #- '386'
+      #- arm
       - arm64
     ignore:
       - goos: darwin
