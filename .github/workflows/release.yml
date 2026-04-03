@@ -44,7 +44,7 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v7.0.0
         with:
-          version: "~> v2"
+          version: "~> v2.13" # 2.13 is the last version that supports Go 1.25 (1.26 CAME OUT TWO MONTHS AGO WTF ARE YOU DOING GORELEASER)
           args: release --clean
         env:
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
