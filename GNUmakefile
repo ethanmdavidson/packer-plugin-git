@@ -28,7 +28,8 @@ test: phony
 
 test-releaser: export API_VERSION = x5.0
 test-releaser: phony
-	go install github.com/goreleaser/goreleaser/v2@latest
+	# goreleaser is pinned to 2.13 because that's the last version supporting go 1.25
+	go install github.com/goreleaser/goreleaser/v2@v2.13.3
 	goreleaser check
 	goreleaser release --snapshot --clean --skip=sign
 
