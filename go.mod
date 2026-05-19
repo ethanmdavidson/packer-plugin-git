@@ -3,7 +3,7 @@ module github.com/ethanmdavidson/packer-plugin-git
 go 1.26
 
 require (
-	github.com/go-git/go-git/v5 v5.19.0
+	github.com/go-git/go-git/v5 v5.19.1
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/hashicorp/packer-plugin-sdk v0.6.7
 	github.com/zclconf/go-cty v1.18.1
